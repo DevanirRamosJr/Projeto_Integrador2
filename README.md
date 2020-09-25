@@ -27,3 +27,8 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
   - Master
     - user_stories(Story Cards)
     - wireframe("mock up" da aplicação)
+
+- Vídeo:
+  <a href="https://www.loom.com/share/e085cb7650184d1399aeca950f3490ed">
+    <img src="img/video_icon.png" >
+  </a> 
