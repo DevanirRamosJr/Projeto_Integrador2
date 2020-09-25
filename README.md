@@ -1,3 +1,5 @@
+<img src="img/icone_pi.png" >
+
 # Projeto Integrador 2
 
 Software para cadastro de conta de água e luz para a empresa Tecsus.
