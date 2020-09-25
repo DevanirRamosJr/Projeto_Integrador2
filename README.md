@@ -25,7 +25,9 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 
 - Localização:
   - Master
-    - user_stories(Story Cards)
+    - <a href="https://github.com/jef771/Projeto_Integrador_2/tree/master/user_stories">
+        <p>user_stories(Story Cards)</p>
+       </a>
     - wireframe("mock up" da aplicação)
 
 - Vídeo:
