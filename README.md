@@ -47,13 +47,13 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 
 - Wireframes:
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/JanelaPrincipal.png">Tela Principal</a>
-    - Tela destinada ao card 3. Uma tela para filtrar as opções do software.
+    - Tela destinada ao card funcional 1. Uma tela para filtrar as opções do software.
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/ContaAgua.png">Tela de Conta de Água</a>
-    - Tela para os cards 1, 2 e 3. Tela simples e de rápida navegação para o digitador.
+    - Tela para o card funcional 1. Tela simples e de rápida navegação para o digitador.
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/ContaLuz.png">Tela de Conta de Luz</a>
-    - Tela para os cards 1, 2 e 3. Tela simples e de rápida navegação para o digitador.
+    - Tela para o card funcional 1. Tela simples e de rápida navegação para o digitador.
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/ContaPesquisa.png">Tela para gerar Relatórios</a>
-    - Tela para o card 7. Tela simples e de fácil visualização para gerar relatórios.
+    - Tela para o card funcional 3. Tela simples e de fácil visualização para gerar relatórios.
 - Localização:
   - Master
     - <a href="https://github.com/jef771/Projeto_Integrador_2/tree/master/user_stories">user_stories(Story Cards)</a>
