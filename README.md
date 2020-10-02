@@ -24,19 +24,19 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 ## Sprint 1:
 
 - User Stories:
-  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/UserStorie-1.JPG">Card 1: </a>
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-1.JPG">Card 1: </a>
     - Para suprir a necessidade do cliente(produtividade dos digitadores) e ajudar os digitadores(facilitar o processo), uma interface ágil e simples é essencial.
-  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/UserStorie-2.JPG">Card 2: </a>
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-2.JPG">Card 2: </a>
     - Como o usuário será o digitador priorizamos a facilidade do processo, por isso um código rápido é essencial para acompanhar a velocidade do profissional.
-  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/UserStorie-3.JPG">Card 3: </a>
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-3.JPG">Card 3: </a>
     - Cliente e usuário precisam de informações diferentes para cada conta a ser cadastrada por isso uma interface que filtre informações ou uma interface separada para cada caso é importante.
-  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/UserStorie-4.JPG">Card 4: </a>
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-4.JPG">Card 4: </a>
     - Mais uma vez priorizamos facilitar o processo de digitação, dessa forma o cliente e usuário podem ser beneficiados.
-  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/UserStorie-5.JPG">Card 5: </a>
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-5.JPG">Card 5: </a>
     - É importante o usuário conhecer o software que ele está usando por isso um guia é importante.
-  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/UserStorie-6.JPG">Card 6: </a>
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-6.JPG">Card 6: </a>
     - O ideal para facilitar o processo.
-  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/UserStorie-7.JPG">Card 7: </a>
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-7.JPG">Card 7: </a>
     - Um dos requisitos é um relatório, por isso uma função que gere um relatório será adicionada.
 
 - Wireframes:
