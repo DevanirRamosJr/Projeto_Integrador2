@@ -22,22 +22,28 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 - Jonatas Ferreira - P.O.
 
 ## Sprint 1:
-
-- User Stories:
+- User Stories Funcionais:
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/funcionais/card1.jpg">Card 1: </a>
+    - Story Card priorizado para sprint 1(pode ser dividido em duas sprints), contém as principais funcionalidades do sistema que o cliente deseja.
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/funcionais/card2.jpg">Card 2: </a>
+    - Story Card para sprint 3.
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/funcionais/card3.jpg">Card 3: </a>
+    - Story Card para sprint 4.
+- User Stories não Funcionais:
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-1.JPG">Card 1: </a>
-    - Para suprir a necessidade do cliente(produtividade dos digitadores) e ajudar os digitadores(facilitar o processo), uma interface ágil e simples é essencial.
+    - Para suprir a necessidade do cliente(produtividade dos digitadores) e ajudar os digitadores(facilitar o processo), uma interface ágil e simples é essencial(ligado ao Card funcional 1).
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-2.JPG">Card 2: </a>
-    - Como o usuário será o digitador priorizamos a facilidade do processo, por isso um código rápido é essencial para acompanhar a velocidade do profissional.
+    - Como o usuário será o digitador priorizamos a facilidade do processo, por isso um código rápido é essencial para acompanhar a velocidade do profissional(Card funcional 1 e 2).
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-3.JPG">Card 3: </a>
-    - Cliente e usuário precisam de informações diferentes para cada conta a ser cadastrada por isso uma interface que filtre informações ou uma interface separada para cada caso é importante.
+    - Cliente e usuário precisam de informações diferentes para cada conta a ser cadastrada por isso uma interface que filtre informações ou uma interface separada para cada caso é importante(Card funcional 1).
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-4.JPG">Card 4: </a>
-    - Mais uma vez priorizamos facilitar o processo de digitação, dessa forma o cliente e usuário podem ser beneficiados.
+    - Mais uma vez priorizamos facilitar o processo de digitação, dessa forma o cliente e usuário podem ser beneficiados(Card funcional 1).
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-5.JPG">Card 5: </a>
     - É importante o usuário conhecer o software que ele está usando por isso um guia é importante.
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-6.JPG">Card 6: </a>
-    - O ideal para facilitar o processo.
+    - O ideal para facilitar o processo(Card funcional 1, 2 e 3).
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-7.JPG">Card 7: </a>
-    - Um dos requisitos é um relatório, por isso uma função que gere um relatório será adicionada.
+    - Um dos requisitos é um relatório, por isso uma função que gere um relatório será adicionada(Card funcional 3).
 
 - Wireframes:
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/JanelaPrincipal.png">Tela Principal</a>
