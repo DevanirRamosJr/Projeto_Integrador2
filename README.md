@@ -42,14 +42,14 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
     - Um dos requisitos é um relatório, por isso uma função que gere um relatório será adicionada.
 
 - Wireframes:
-  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/JanelaPrincipal.png">Tela Principal</a>
-    - Tela destinada ao card funcional 1. Uma tela para filtrar as opções do software.
-  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/ContaAgua.png">Tela de Conta de Água</a>
-    - Tela para o card funcional 1. Tela simples e de rápida navegação para o digitador.
-  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/ContaLuz.png">Tela de Conta de Luz</a>
-    - Tela para o card funcional 1. Tela simples e de rápida navegação para o digitador.
-  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/ContaPesquisa.png">Tela para gerar Relatórios</a>
-    - Tela para o card funcional 3. Tela simples e de fácil visualização para gerar relatórios.
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/janela_principal.png">Tela Principal</a>
+
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/conta_agua.png">Tela de Conta de Água</a>
+
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/conta_luz.png">Tela de Conta de Luz</a>
+
+  - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/gerar_relatorio.png">Tela para gerar Relatórios</a>
+   
 - Localização:
   - Master
     - <a href="https://github.com/jef771/Projeto_Integrador_2/tree/master/user_stories">user_stories(Story Cards)</a>
