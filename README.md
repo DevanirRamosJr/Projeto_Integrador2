@@ -27,7 +27,7 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
     - Story Card com círculo vermelho priorizado para próxima sprint.
 - User Stories não Funcionais:
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-1.JPG">Card 1: </a>
-    - Para suprir a necessidade do cliente(produtividade dos digitadores) e ajudar os digitadores(facilitar o processo), uma interface ágil e simples é essencial.
+    - Para suprir a necessidade da Tecsus(produtividade dos digitadores) e ajudar os digitadores(facilitar o processo), uma interface ágil e simples é essencial.
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-2.JPG">Card 2: </a>
     - Como o usuário será o digitador priorizamos a facilidade do processo, por isso um código rápido é essencial para acompanhar a velocidade do profissional.
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-3.JPG">Card 3: </a>
@@ -39,7 +39,7 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-6.JPG">Card 6: </a>
     - O ideal para facilitar o processo.
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-7.JPG">Card 7: </a>
-    - Um dos requisitos é um relatório, por isso uma função que gere um relatório será adicionada.
+    - Para o cliente acompanhar o consumo de água ou luz.
 
 - Wireframes:
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/wireframe/janela_principal.png">Tela Principal</a>
