@@ -24,7 +24,7 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 ## Sprint 1:
 - User Stories Funcionais:
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/img/story_map_digitador3.png">User </a><a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/funcionais/user_story_map.png">Stories: </a>
-    - Story Card com círculo vermelho priorizado para próxima sprint.
+    - User Story em ordem de prioridade(para a próxima sprint: User Story 1).
 - User Stories não Funcionais:
   - <a href="https://raw.githubusercontent.com/jef771/Projeto_Integrador_2/master/user_stories/nao_funcionais/UserStorie-1.JPG">Card 1: </a>
     - Para suprir a necessidade da Tecsus(produtividade dos digitadores) e ajudar os digitadores(facilitar o processo), uma interface ágil e simples é essencial.
