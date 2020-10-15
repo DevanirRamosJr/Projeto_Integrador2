@@ -22,9 +22,9 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 - Jonatas Ferreira - P.O.
 
 ## Sprint 1:
-<img src="img/entrega_user_story1.png" >
+<img src="img/entrega_story_card1.png" >
 
-<img src="img/entrega_user_story2.png" >
+<img src="img/entrega_story_card2.png" >
    
 - Localização:
   - Master
