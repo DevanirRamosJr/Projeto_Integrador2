@@ -26,10 +26,13 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 
 <img src="img/entrega_story_card2.png" >
    
-- Localização:
-  - Master
-    - <a href="https://github.com/jef771/Projeto_Integrador_2/tree/master/user_stories">user_stories(Story Cards)</a>
-    - <a href="https://github.com/jef771/Projeto_Integrador_2/tree/master/wireframe">wireframe("mock up" da aplicação)</a>
+- Instalação:
+   - Download projeto_integrador2-1.0.jar
+   - Download Java
+   - No terminal vá até a pasta de download e digite:
+   ```
+   $ java -jar projeto_integrador2-1.0.jar
+   ```
 
 - Vídeo:
    
