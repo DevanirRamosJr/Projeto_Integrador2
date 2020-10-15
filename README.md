@@ -32,7 +32,9 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
     - <a href="https://github.com/jef771/Projeto_Integrador_2/tree/master/wireframe">wireframe("mock up" da aplicação)</a>
 
 - Vídeo:
+   
+  <!-- usar o snippet abaixo para colocar o vídeo -->
 
-  <a href="https://www.loom.com/share/23ad38551e154d7eba3c92a02de4ca16">
+  <!--<a href="https://www.loom.com/share/23ad38551e154d7eba3c92a02de4ca16">
     <img src="img/video_icon.png" >
-  </a> 
+  </a>-->
