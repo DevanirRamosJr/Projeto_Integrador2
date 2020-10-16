@@ -22,6 +22,14 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 - Jonatas Ferreira - P.O.
 
 ## Sprint 1:
+
+- Objetivos da entrega:
+   - Fluxo de digitação
+   - Tela para escolha entre conta de água ou luz
+   - Implementar atalhos
+   - Criar função para correção de cadastro errado
+   - Função para checar erros de digitação
+   
 <img src="img/entrega_story_card1.png" >
 
 <img src="img/entrega_story_card2.png" >
@@ -43,6 +51,9 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
             java -jar projeto_integrador2-1.0.jar
             ```
 - Guia de usuário incluído no arquivo zip.
+
+- Para a próxima Sprint (Sprint 2):
+ - <img src="img/user_story_3.png" >
 
 - Vídeo:
    
