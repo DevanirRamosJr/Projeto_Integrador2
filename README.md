@@ -32,11 +32,13 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
    - Leia o guia de usuário para instruções de uso(readme.txt)
    - Linux:
       - No terminal vá até a pasta em que você extraiu os arquivos e digite:
+      
             ```
             $ java -jar projeto_integrador2-1.0.jar
             ```
    - Windows:
       - Procure por "command prompt" inicie como admin com o botão direito, vá até a pasta em que você extraiu os arquivos e digite:
+      
             ```
             java -jar projeto_integrador2-1.0.jar
             ```
