@@ -56,7 +56,22 @@ public class TelaLuz extends javax.swing.JFrame {
     
     procurarButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_D, KeyEvent.CTRL_DOWN_MASK), key2);
     
-    procurarButton.getActionMap().put(key2, searchAction);        
+    procurarButton.getActionMap().put(key2, searchAction);
+    
+    
+            Action clearAction = new AbstractAction("clear") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                clear();   
+            }
+        };
+    
+    String key3 = "clear";
+    
+    procurarButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK), key3);
+    
+    procurarButton.getActionMap().put(key3, clearAction);
     }
 
     /**
@@ -93,6 +108,8 @@ public class TelaLuz extends javax.swing.JFrame {
         procurarButton = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        limparButton = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -135,6 +152,15 @@ public class TelaLuz extends javax.swing.JFrame {
         jLabel11.setText("ctrl + s");
 
         jLabel12.setText("ctrl + d");
+
+        limparButton.setText("Limpar");
+        limparButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("ctrl + f");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,8 +206,12 @@ public class TelaLuz extends javax.swing.JFrame {
                             .addComponent(jLabel11))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel13)
+                            .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -231,12 +261,14 @@ public class TelaLuz extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jLabel12))
+                    .addComponent(jLabel12)
+                    .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
 
@@ -247,10 +279,14 @@ public class TelaLuz extends javax.swing.JFrame {
         // TODO add your handling code here:
         ContaLuz cliente = new ContaLuz(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
         String instalacao = instalacaoField.getText();
+        double x = checarTotal();
         
         if(checarDados(cliente)==0) {
             
             if(!clientes.containsKey(instalacao)) {
+                if(x != Double.valueOf(totalPagarField.getText())) {
+                    JOptionPane.showMessageDialog(null, "Total divergente");
+                }
                 this.clientes.put(instalacao, cliente);
                 this.historico.add(cliente);
             } else {
@@ -274,11 +310,12 @@ public class TelaLuz extends javax.swing.JFrame {
     public void save() {
         ContaLuz cliente = new ContaLuz(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
         String instalacao = instalacaoField.getText();
+        double x = checarTotal();
         
         if(checarDados(cliente)==0) {
             
             if(!clientes.containsKey(instalacao)) {
-                if(checarTotal(cliente) != Double.valueOf(cliente.getTotalPagar())) {
+                if(x != Double.valueOf(totalPagarField.getText())) {
                     JOptionPane.showMessageDialog(null, "Total divergente");
                 }
                 this.clientes.put(instalacao, cliente);
@@ -315,6 +352,18 @@ public class TelaLuz extends javax.swing.JFrame {
             totalPagarField.setText(clientes.get(instalacao).getTotalPagar());
         }
     }//GEN-LAST:event_procurarButtonActionPerformed
+
+    private void limparButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparButtonActionPerformed
+        // TODO add your handling code here:
+        limparDados();
+        instalacaoField.requestFocus();
+    }//GEN-LAST:event_limparButtonActionPerformed
+    
+    
+    public void clear() {
+        limparDados();
+        instalacaoField.requestFocus();
+    }
     
     
     public void search() {
@@ -334,14 +383,14 @@ public class TelaLuz extends javax.swing.JFrame {
         }        
     }
     
-    public double checarTotal(ContaLuz dados) {
+    public double checarTotal() {
         
-        double tarifa = Double.valueOf(dados.getTarifa());
-        double pis = Double.valueOf(dados.getPis());
-        double cofins = Double.valueOf(dados.getCofins());
-        double icms = Double.valueOf(dados.getIcms());
-        double total = Double.valueOf(dados.getTotalPagar());
-        double quantidade = Double.valueOf(dados.getConsumo());
+        double tarifa = Double.valueOf(tarifaField.getText());
+        double pis = Double.valueOf(pisField.getText());
+        double cofins = Double.valueOf(cofinsField.getText());
+        double icms = Double.valueOf(icmsField.getText());
+        double total = Double.valueOf(totalPagarField.getText());
+        double quantidade = Double.valueOf(consumoField.getText());
         
         double totalReal = (total*pis/100) + (total*cofins/100) + (total*icms/100) + (quantidade*tarifa);
         
@@ -441,6 +490,7 @@ public class TelaLuz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -449,6 +499,7 @@ public class TelaLuz extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JButton limparButton;
     private javax.swing.JTextField nomeClienteField;
     private javax.swing.JTextField pisField;
     private javax.swing.JButton procurarButton;

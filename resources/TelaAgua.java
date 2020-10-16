@@ -57,6 +57,20 @@ public class TelaAgua extends javax.swing.JFrame {
     procurarButton.getActionMap().put(key2, searchAction);
     
     
+        Action clearAction = new AbstractAction("clear") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+                clear();   
+            }
+        };
+    
+    String key3 = "clear";
+    
+    limparButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK), key3);
+    
+    limparButton.getActionMap().put(key3, clearAction);
+    
     }
     
     
@@ -83,6 +97,7 @@ public class TelaAgua extends javax.swing.JFrame {
         rgiField.requestFocus();
     }
     
+    
     public void search() {
         clienteField.setText(clientes.get(rgiField.getText()).getNome().toUpperCase());
         contaField.setText(clientes.get(rgiField.getText()).getConta());
@@ -91,7 +106,11 @@ public class TelaAgua extends javax.swing.JFrame {
         totalField.setText(clientes.get(rgiField.getText()).getTotal());
         vencimentoField.setText(clientes.get(rgiField.getText()).getVencimento());        
     }
-
+    
+    
+    public void clear() {
+        limparDados();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -120,22 +139,38 @@ public class TelaAgua extends javax.swing.JFrame {
         procurarButton = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        limparButton = new javax.swing.JButton();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
+   
+
         jLabel1.setText("Cliente");
+
+   
 
         jLabel2.setText("RGI");
 
         jLabel3.setText("No da Conta");
 
+   
+
         jLabel4.setText("Mes de Referencia");
+
+
 
         jLabel5.setText("Total a Pagar");
 
+
+
         jLabel6.setText("Consumo m3");
 
+
+
         jLabel7.setText("Vencimento");
+
+
 
         salvarButton.setText("Salvar");
         salvarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -145,6 +180,7 @@ public class TelaAgua extends javax.swing.JFrame {
         });
 
         historicoButton.setText("Historico");
+
 
         procurarButton.setText("Procurar");
         procurarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -156,6 +192,15 @@ public class TelaAgua extends javax.swing.JFrame {
         jLabel8.setText("ctrl + s");
 
         jLabel9.setText("ctrl + d");
+
+        limparButton.setText("Limpar");
+        limparButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                limparButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setText("ctrl + f");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -198,8 +243,12 @@ public class TelaAgua extends javax.swing.JFrame {
                                 .addComponent(historicoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel9)
-                                    .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel9))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -237,12 +286,14 @@ public class TelaAgua extends javax.swing.JFrame {
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(jLabel9))
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(historicoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(110, Short.MAX_VALUE))
         );
 
@@ -287,6 +338,12 @@ public class TelaAgua extends javax.swing.JFrame {
        
         
     }//GEN-LAST:event_salvarButtonActionPerformed
+
+    private void limparButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparButtonActionPerformed
+        // TODO add your handling code here:
+        limparDados();
+        rgiField.requestFocus();
+    }//GEN-LAST:event_limparButtonActionPerformed
     
     
     public int checarCampos(ContaAgua cliente) {
@@ -364,6 +421,7 @@ public class TelaAgua extends javax.swing.JFrame {
     private javax.swing.JTextField contaField;
     private javax.swing.JButton historicoButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -372,6 +430,7 @@ public class TelaAgua extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JButton limparButton;
     private javax.swing.JTextField mesField;
     private javax.swing.JButton procurarButton;
     private javax.swing.JTextField rgiField;
