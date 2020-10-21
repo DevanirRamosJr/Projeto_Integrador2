@@ -116,6 +116,11 @@ public class ContaLuz {
     public String getTotalPagar() {
         return totalPagar;
     }
+
+    public String toString() {
+        return "INSTALACAO=" + instalacao + ",NOME=" + nomeCliente + ",VENCIMENTO=" + vencimento + ",CONTA DO MES=" + contaMes + ",CONSUMO=" + consumo + ",TARIFA=" + tarifa + ",PIS=" + pis + ",COFINS=" + cofins + ",ICMS=" + icms + ",TOTAL A PAGAR=" + totalPagar + '\n';
+    }
+    
     
     
     

@@ -7,7 +7,11 @@ package source;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
@@ -83,6 +87,7 @@ public class TelaLuz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton2 = new javax.swing.JButton();
         instalacaoField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         nomeClienteField = new javax.swing.JTextField();
@@ -104,12 +109,14 @@ public class TelaLuz extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         totalPagarField = new javax.swing.JTextField();
         salvarButton = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         procurarButton = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         limparButton = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
+        arquivoButton = new javax.swing.JButton();
+
+        jButton2.setText("Histórico");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -140,8 +147,6 @@ public class TelaLuz extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Histórico");
-
         procurarButton.setText("Procurar");
         procurarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,6 +166,13 @@ public class TelaLuz extends javax.swing.JFrame {
         });
 
         jLabel13.setText("ctrl + f");
+
+        arquivoButton.setText("Criar Arquivo");
+        arquivoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                arquivoButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -199,19 +211,19 @@ public class TelaLuz extends javax.swing.JFrame {
                             .addComponent(totalPagarField)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel11)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(salvarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel11))
+                                .addComponent(arquivoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel12))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -258,7 +270,7 @@ public class TelaLuz extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(icmsField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(totalPagarField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jLabel12)
@@ -266,9 +278,9 @@ public class TelaLuz extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(arquivoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27))
         );
 
@@ -358,6 +370,14 @@ public class TelaLuz extends javax.swing.JFrame {
         limparDados();
         instalacaoField.requestFocus();
     }//GEN-LAST:event_limparButtonActionPerformed
+
+    private void arquivoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arquivoButtonActionPerformed
+        try {
+            SalvarDados();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível criar arquivo");
+        }
+    }//GEN-LAST:event_arquivoButtonActionPerformed
     
     
     public void clear() {
@@ -376,7 +396,7 @@ public class TelaLuz extends javax.swing.JFrame {
             contaMesField.setText(clientes.get(instalacao).getContaMes());
             consumoField.setText(clientes.get(instalacao).getConsumo());
             tarifaField.setText(clientes.get(instalacao).getTarifa());
-            pisField.setText(clientes.get(instalacao).getTarifa());
+            pisField.setText(clientes.get(instalacao).getPis());
             cofinsField.setText(clientes.get(instalacao).getCofins());
             icmsField.setText(clientes.get(instalacao).getIcms());
             totalPagarField.setText(clientes.get(instalacao).getTotalPagar());
@@ -431,6 +451,19 @@ public class TelaLuz extends javax.swing.JFrame {
     }
     
     
+    public void SalvarDados() throws IOException {
+        
+        try (FileWriter myWriter = new FileWriter("contaLuzDataBase.txt")) {
+            for (String key: this.clientes.keySet()) {
+                
+                myWriter.write(this.clientes.get(key).toString());
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível criar arquivo");
+        }
+    }
+    
+    
     public void limparDados(){
         
         instalacaoField.setText("");
@@ -480,6 +513,7 @@ public class TelaLuz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton arquivoButton;
     private javax.swing.JTextField cofinsField;
     private javax.swing.JTextField consumoField;
     private javax.swing.JTextField contaMesField;

@@ -65,7 +65,7 @@
                                   <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="historicoButton" min="-2" pref="114" max="-2" attributes="0"/>
+                              <Component id="arquivoButton" min="-2" pref="114" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="procurarButton" alignment="0" min="-2" pref="114" max="-2" attributes="0"/>
@@ -131,7 +131,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="salvarButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
-                  <Component id="historicoButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
+                  <Component id="arquivoButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                   <Component id="procurarButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
                   <Component id="limparButton" alignment="3" min="-2" pref="45" max="-2" attributes="0"/>
               </Group>
@@ -220,12 +220,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salvarButtonActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="historicoButton">
+    <Component class="javax.swing.JButton" name="arquivoButton">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Historico"/>
+        <Property name="text" type="java.lang.String" value="Criar Arquivo"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="historicoButtonActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="arquivoButtonActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="procurarButton">

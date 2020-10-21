@@ -5,6 +5,8 @@ import java.util.HashMap;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -135,7 +137,7 @@ public class TelaAgua extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         consumoField = new javax.swing.JTextField();
         salvarButton = new javax.swing.JButton();
-        historicoButton = new javax.swing.JButton();
+        arquivoButton = new javax.swing.JButton();
         procurarButton = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -144,33 +146,20 @@ public class TelaAgua extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-   
 
         jLabel1.setText("Cliente");
-
-   
 
         jLabel2.setText("RGI");
 
         jLabel3.setText("No da Conta");
 
-   
-
         jLabel4.setText("Mes de Referencia");
-
-
 
         jLabel5.setText("Total a Pagar");
 
-
-
         jLabel6.setText("Consumo m3");
 
-
-
         jLabel7.setText("Vencimento");
-
-
 
         salvarButton.setText("Salvar");
         salvarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -179,8 +168,12 @@ public class TelaAgua extends javax.swing.JFrame {
             }
         });
 
-        historicoButton.setText("Historico");
-
+        arquivoButton.setText("Criar Arquivo");
+        arquivoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                arquivoButtonActionPerformed(evt);
+            }
+        });
 
         procurarButton.setText("Procurar");
         procurarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -240,7 +233,7 @@ public class TelaAgua extends javax.swing.JFrame {
                                     .addComponent(salvarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel8))
                                 .addGap(18, 18, 18)
-                                .addComponent(historicoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(arquivoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -291,7 +284,7 @@ public class TelaAgua extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(salvarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(historicoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(arquivoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(110, Short.MAX_VALUE))
@@ -380,6 +373,27 @@ public class TelaAgua extends javax.swing.JFrame {
         totalField.setText("");
         vencimentoField.setText("");
     }
+    
+    
+    private void arquivoButtonActionPerformed(java.awt.event.ActionEvent evt) {                                              
+        try {
+            SalvarDados();
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Não foi possível criar arquivo");
+        }
+    }   
+    
+    public void SalvarDados() throws IOException {
+        
+        try (FileWriter myWriter = new FileWriter("contaAguaDataBase.txt")) {
+            for (String key: this.clientes.keySet()) {
+                
+                myWriter.write(this.clientes.get(key).toString());
+            }
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "Não foi possível criar arquivo");
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -416,10 +430,10 @@ public class TelaAgua extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton arquivoButton;
     private javax.swing.JTextField clienteField;
     private javax.swing.JTextField consumoField;
     private javax.swing.JTextField contaField;
-    private javax.swing.JButton historicoButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

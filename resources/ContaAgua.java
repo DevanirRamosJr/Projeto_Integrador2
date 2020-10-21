@@ -87,6 +87,11 @@ public class ContaAgua {
     public void setVencimento(String vencimento) {
         this.vencimento = vencimento;
     }
+
+    @Override
+    public String toString() {
+        return "RGI=" + rgi + ",NOME=" + nome + ",NUMERO DA CONTA=" + conta + ",MES DE REFERENCIA=" + mes + ",CONSUMO=" + consumo + ",TOTAL=" + total + ",VENCIMENTO=" + vencimento + '\n';
+    }
     
     
     
