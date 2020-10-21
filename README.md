@@ -14,7 +14,6 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 
 ### Integrantes da Equipe
 
-- Carlos Vinícius - Desenvolvedor
 - Danillo - Desenvolvedor
 - Devanir - Desenvolvedor
 - Jeferson - Scrum Master
