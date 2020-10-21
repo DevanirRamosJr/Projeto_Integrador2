@@ -21,7 +21,7 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 - Johnny - Desenvolvedor
 - Jonatas Ferreira - P.O.
 
-## Sprint 1:
+## Sprint 2:
 
 - Objetivos da entrega:
    - Fluxo de digitação
