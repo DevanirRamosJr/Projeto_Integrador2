@@ -26,8 +26,9 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
    - Fluxo de digitação
    - Tela para escolha entre conta de água ou luz
    - Implementar atalhos
-   - Criar função para correção de cadastro errado
+   - Função para correção de cadastro errado
    - Função para checar erros de digitação
+   - Criar arquivo txt com os dados cadastrados
    
 <img src="img/entrega_story_card1.png" >
 
