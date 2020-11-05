@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -79,7 +81,12 @@ public class TelaAgua extends javax.swing.JFrame {
     public void save() {
         ContaAgua cliente = new ContaAgua(rgiField.getText(), clienteField.getText(), contaField.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField.getText());
         
-        
+        try {
+			post(rgiField.getText(), clienteField.getText(), contaField.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField.getText());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         if(checarCampos(cliente)==0) {
             if(!clientes.containsKey(rgiField.getText())) {
@@ -93,11 +100,28 @@ public class TelaAgua extends javax.swing.JFrame {
                 clientes.get(rgiField.getText()).setTotal(totalField.getText());
                 clientes.get(rgiField.getText()).setVencimento(vencimentoField.getText());
             }
+            
             limparDados();
         }
         
         rgiField.requestFocus();
     }
+    
+    public static void post(String rgi, String nome, String conta, String mes, String consumo, String total, String vencimento) throws Exception {
+		try {
+			Connection conexao = FabricaConexao.getConexao();
+			//con.prepareStatement("COMANDO SQL")
+			String sql = "INSERT INTO conta_agua VALUES ('" + rgi + "','" + nome + "','" + conta + "','" + mes + "','" + consumo + "','" + total + "','" + vencimento + "')";
+			PreparedStatement posted = conexao.prepareStatement(sql);
+			posted.executeUpdate();
+		}
+		catch (Exception e) {
+			System.out.println("catch do post " + e);
+		}
+		finally {
+			System.out.println("dados inseridos");
+		}
+	}
     
     
     public void search() {
@@ -308,7 +332,12 @@ public class TelaAgua extends javax.swing.JFrame {
         // TODO add your handling code here:
         ContaAgua cliente = new ContaAgua(rgiField.getText(), clienteField.getText(), contaField.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField.getText());
         
-        
+        try {
+			post(rgiField.getText(), clienteField.getText(), contaField.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField.getText());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         if(checarCampos(cliente)==0) {
             if(!clientes.containsKey(rgiField.getText())) {

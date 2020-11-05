@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -293,6 +295,13 @@ public class TelaLuz extends javax.swing.JFrame {
         String instalacao = instalacaoField.getText();
         double x = checarTotal();
         
+        try {
+			post(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
         if(checarDados(cliente)==0) {
             
             if(!clientes.containsKey(instalacao)) {
@@ -324,6 +333,13 @@ public class TelaLuz extends javax.swing.JFrame {
         String instalacao = instalacaoField.getText();
         double x = checarTotal();
         
+        try {
+			post(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
         if(checarDados(cliente)==0) {
             
             if(!clientes.containsKey(instalacao)) {
@@ -348,6 +364,25 @@ public class TelaLuz extends javax.swing.JFrame {
         
         instalacaoField.requestFocus();       
     }
+    
+    public static void post(String instalacao, String nomeCliente, String vencimento, String contaMes, String consumo, String tarifa, 
+    		String pis, String cofins, String icms, String totalPagar) throws Exception {
+		try {
+			Connection conexao = FabricaConexao.getConexao();
+			//con.prepareStatement("COMANDO SQL")
+			String sql = "INSERT INTO conta_luz VALUES ('" + instalacao + "','" + nomeCliente + "','" + vencimento + "','" + contaMes + "','" 
+			+ consumo + "','" + tarifa + "','" + pis + "','" + cofins + "','" + icms + "','" + totalPagar + "')";
+			PreparedStatement posted = conexao.prepareStatement(sql);
+			posted.executeUpdate();
+		}
+		catch (Exception e) {
+			System.out.println("catch do post " + e);
+		}
+		finally {
+			System.out.println("dados inseridos");
+		}
+	}
+    
     private void procurarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_procurarButtonActionPerformed
 
         String instalacao = instalacaoField.getText();

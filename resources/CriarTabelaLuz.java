@@ -11,16 +11,16 @@ public class CriarTabelaLuz {
 		Connection conexao = FabricaConexao.getConexao();
 		
 		String sql = "CREATE TABLE IF NOT EXISTS conta_luz ("
-				+ "numero_instalacao VARCHAR(15) PRIMARY KEY NOT NULL,"
-				+ "cliente VARCHAR(80) NOT NULL,"
-				+ "vencimento DATE NOT NULL,"
-				+ "conta_mes VARCHAR(15) NOT NULL,"
-				+ "consumo DECIMAL(15,2) NOT NULL,"
-				+ "tarifa DECIMAL(15,10) NOT NULL,"
-				+ "pis DECIMAL(15,2) NOT NULL,"
-				+ "confins DECIMAL(15,2) NOT NULL,"
-				+ "icms DECIMAL(15,2) NOT NULL,"
-				+ "total_pagar DECIMAL(15,2) NOT NULL"
+				+ "instalacao VARCHAR(15) PRIMARY KEY NOT NULL,"
+				+ "nomeCliente VARCHAR(80) NOT NULL,"
+				+ "vencimento VARCHAR(15) NULL,"
+				+ "contaMes VARCHAR(15) NOT NULL,"
+				+ "consumo VARCHAR(15) NOT NULL,"
+				+ "tarifa VARCHAR(15) NOT NULL,"
+				+ "pis VARCHAR(15) NOT NULL,"
+				+ "confins VARCHAR(15) NOT NULL,"
+				+ "icms VARCHAR(15) NOT NULL,"
+				+ "totalPagar VARCHAR(15) NOT NULL"
 				+ ")";
 		
 		Statement stmt = conexao.createStatement();

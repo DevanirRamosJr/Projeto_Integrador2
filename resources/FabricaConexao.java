@@ -11,7 +11,7 @@ public class FabricaConexao {
 			try {
 				final String url = "jdbc:mysql://localhost/projeto_integrador?verifyServerCertificate=false&useSSL=true";
 				final String usuario = "root";
-				final String senha = "123456789";
+				final String senha = "G1u2m3@4";
 				
 				// CRIANDO CONEXAO
 				return DriverManager.getConnection(url, usuario, senha);
