@@ -15,24 +15,17 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 ### Integrantes da Equipe
 
 - Danillo - Desenvolvedor
-- Devanir - Desenvolvedor
-- Jeferson - Scrum Master
+- Devanir - Scrum Master
 - Johnny - Desenvolvedor
 - Jonatas Ferreira - P.O.
 
-## Sprint 2:
+## Sprint 3:
 
 - Objetivos da entrega:
-   - Fluxo de digitação
-   - Tela para escolha entre conta de água ou luz
-   - Implementar atalhos
-   - Função para correção de cadastro errado
-   - Função para checar erros de digitação
-   - Criar arquivo txt com os dados cadastrados
+   - Salva em um Banco de Dados
+   - Requer login para executar o programa
    
-<img src="img/entrega_story_card1.png" >
-
-<img src="img/entrega_story_card2.png" >
+"imagens"
    
 - Instalação:
    - Download projeto_integrador2.zip
@@ -52,10 +45,10 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
             ```
 - Guia de usuário incluído no arquivo zip.
 
-- Para a próxima Sprint (Sprint 2):
+- Para a próxima Sprint (Sprint 4):
 
-  <img src="img/user_story_3.png" >
+"imagem"
 
-- Vídeo:
+- Vídeo (sprint 2):
 
 https://www.loom.com/share/5d6b60f5d3e144e396ba50ea38183049
