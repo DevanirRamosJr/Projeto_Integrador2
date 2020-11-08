@@ -25,23 +25,24 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
    - Salva em um Banco de Dados
    - Requer login para executar o programa
    
-"imagens"
    
 - Instalação:
-   - Download projeto_integrador2.zip
+   - Download Programa executável.zip
    - Descompactar os arquivos em sua pasta desejada
    - Leia o guia de usuário para instruções de uso(readme.txt)
    - Linux:
       - No terminal vá até a pasta em que você extraiu os arquivos e digite:
       
             ```
-            $ java -jar projeto_integrador2-1.0.jar
+            $ java -jar PrepararBanco.jar
+            $ java -jar "" "Cadastro de Contas.jar"
             ```
    - Windows:
       - Procure por "command prompt" inicie como admin com o botão direito, vá até a pasta em que você extraiu os arquivos e digite:
       
             ```
-            java -jar projeto_integrador2-1.0.jar
+            $ java -jar PrepararBanco.jar
+            $ java -jar "" "Cadastro de Contas.jar"
             ```
 - Guia de usuário incluído no arquivo zip.
 
