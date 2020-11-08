@@ -1,8 +1,10 @@
 package source;
 
 import java.sql.Connection;
+
 import java.sql.SQLException;
 import java.sql.Statement;
+
 
 import source.FabricaConexao;
 
@@ -14,12 +16,12 @@ public class CriarTabelaAgua {
 			
 			String sql = "CREATE TABLE IF NOT EXISTS conta_agua ("
 					+ "rgi VARCHAR(15) PRIMARY KEY NOT NULL,"
-					+ "cliente VARCHAR(80) NOT NULL,"
-					+ "numero_conta VARCHAR(15) NOT NULL,"
-					+ "mes_referencia VARCHAR(15) NOT NULL,"
+					+ "nome VARCHAR(80) NOT NULL,"
+					+ "conta VARCHAR(15) NOT NULL,"
+					+ "mes VARCHAR(15) NOT NULL,"
 					+ "consumo VARCHAR(10) NOT NULL,"
-					+ "total_pagar DECIMAL(15,2) NOT NULL,"
-					+ "vencimento DATE NOT NULL"
+					+ "total VARCHAR(15) NOT NULL,"
+					+ "vencimento VARCHAR(15) NOT NULL"
 					+ ")";
 			
 			Statement stmt = conexao.createStatement();
@@ -28,4 +30,5 @@ public class CriarTabelaAgua {
 			System.out.println("Tabela criada com sucesso!!!");
 			conexao.close();
 		}
+
 }

@@ -120,7 +120,6 @@ public class TelaAgua extends javax.swing.JFrame {
 			posted.setString(5, consumo);
 			posted.setString(6, total); 
 			posted.setString(7, vencimento);
-			
 			posted.executeUpdate();
 		}
 		catch (Exception e) {

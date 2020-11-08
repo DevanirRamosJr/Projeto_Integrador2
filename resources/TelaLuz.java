@@ -370,7 +370,6 @@ public class TelaLuz extends javax.swing.JFrame {
 		try {
 			Connection conexao = FabricaConexao.getConexao();
 
-			String sql = "INSERT INTO conta_luz VALUES (?,?,?,?,?,?,?,?,?,?)";
 			PreparedStatement posted = conexao.prepareStatement(sql);
 			posted.setString(1, instalacao);
 			posted.setString(2, nomeCliente);
