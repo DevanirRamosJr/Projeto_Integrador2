@@ -1,10 +1,10 @@
 package source;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
+
 import java.sql.SQLException;
 import java.sql.Statement;
-import source.ContaAgua;
+
 
 import source.FabricaConexao;
 
@@ -30,5 +30,5 @@ public class CriarTabelaAgua {
 			System.out.println("Tabela criada com sucesso!!!");
 			conexao.close();
 		}
-	
+
 }

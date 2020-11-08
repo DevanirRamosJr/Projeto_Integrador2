@@ -110,9 +110,16 @@ public class TelaAgua extends javax.swing.JFrame {
     public static void post(String rgi, String nome, String conta, String mes, String consumo, String total, String vencimento) throws Exception {
 		try {
 			Connection conexao = FabricaConexao.getConexao();
-			//con.prepareStatement("COMANDO SQL")
-			String sql = "INSERT INTO conta_agua VALUES ('" + rgi + "','" + nome + "','" + conta + "','" + mes + "','" + consumo + "','" + total + "','" + vencimento + "')";
+
+			String sql = "INSERT INTO conta_agua VALUES (?,?,?,?,?,?,?)";
 			PreparedStatement posted = conexao.prepareStatement(sql);
+			posted.setString(1, rgi);
+			posted.setString(2, nome);
+			posted.setString(3, conta);
+			posted.setString(4, mes);
+			posted.setString(5, consumo);
+			posted.setString(6, total); 
+			posted.setString(7, vencimento);
 			posted.executeUpdate();
 		}
 		catch (Exception e) {

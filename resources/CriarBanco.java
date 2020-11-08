@@ -10,16 +10,18 @@ public class CriarBanco {
 	public static void main(String[] args) throws SQLException {
 		// TODO Auto-generated method stub
 		
-		final String url = "jdbc:mysql://localhost?verifyServerCertificate=false&useSSL=true";
+
+		final String url = "jdbc:mysql://localhost:3306?verifyServerCertificate=false&useSSL=true";
 		final String usuario = "root";
-		final String senha = "G1u2m3@4"; 
+		final String senha = "123456789";
+
 		
 		// CRIANDO CONEXAO
 		Connection conexao = DriverManager.getConnection(url, usuario, senha);
 		
 		Statement stmt = conexao.createStatement();
 		
-		// CRIANDO BANCO DE DADOS SE ELE N√O EXISTIR
+		// CRIANDO BANCO DE DADOS SE ELE N√ÉO EXISTIR
 		stmt.execute("CREATE DATABASE IF NOT EXISTS projeto_integrador");
 		
 		// DELETANDO O BANCO CASO ELE EXISTA

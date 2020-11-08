@@ -369,10 +369,18 @@ public class TelaLuz extends javax.swing.JFrame {
     		String pis, String cofins, String icms, String totalPagar) throws Exception {
 		try {
 			Connection conexao = FabricaConexao.getConexao();
-			//con.prepareStatement("COMANDO SQL")
-			String sql = "INSERT INTO conta_luz VALUES ('" + instalacao + "','" + nomeCliente + "','" + vencimento + "','" + contaMes + "','" 
-			+ consumo + "','" + tarifa + "','" + pis + "','" + cofins + "','" + icms + "','" + totalPagar + "')";
+
 			PreparedStatement posted = conexao.prepareStatement(sql);
+			posted.setString(1, instalacao);
+			posted.setString(2, nomeCliente);
+			posted.setString(3, vencimento);
+			posted.setString(4, contaMes);
+			posted.setString(5, consumo);
+			posted.setString(6, tarifa);
+			posted.setString(7, pis);
+			posted.setString(8, cofins);
+			posted.setString(9, icms);
+			posted.setString(10, totalPagar);
 			posted.executeUpdate();
 		}
 		catch (Exception e) {
