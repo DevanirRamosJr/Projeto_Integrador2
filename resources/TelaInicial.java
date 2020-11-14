@@ -19,6 +19,7 @@ public class TelaInicial extends javax.swing.JFrame {
      * Creates new form TelaInicial
      */
     public TelaInicial() {
+        setTitle("Menu");
         initComponents();
         
         Action aguaAction = new AbstractAction("Água") {
@@ -102,7 +103,7 @@ public class TelaInicial extends javax.swing.JFrame {
         relatorioButton.setText("Relatório");
         relatorioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                relatorioButtonActionPerformed(evt);
+                new TelaRelatorio().setVisible(true);
             }
         });
 
