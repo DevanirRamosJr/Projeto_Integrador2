@@ -5,6 +5,7 @@
 
 package source;
 
+import java.awt.CardLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -21,19 +22,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.SwingConstants;
+import javax.swing.JRadioButton;
 
 
 
 public class TelaRelatorio extends JFrame {
 	private ArrayList lista_cliente;
-	private ArrayList lista_rgi;
+	private String conta;
 	
-	private JPanel contentPane;
+	private JPanel Panel_cliente;
 
 	/**
 	 * Launch the application.
@@ -56,53 +61,158 @@ public class TelaRelatorio extends JFrame {
 	 */
 	public TelaRelatorio() {
 		setTitle("Relatório");
+		setResizable(false);
 		setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 		setBounds(0, 0, 600, 500);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		
-		JLabel Lcliente = new JLabel("Nome:");
+		JPanel Panel_main = new JPanel();
+		Panel_main.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(Panel_main);
+		Panel_main.setLayout(new CardLayout(0, 0));
+		CardLayout cl = (CardLayout)(Panel_main.getLayout());
+		
+		JPanel Panel_init = new JPanel();
+		Panel_main.add(Panel_init, "0");
+		Panel_init.setLayout(null);
+		
+		
+		
+		
+		//tela inicial
+		JLabel Ltitle = new JLabel("Tipo de Relat\u00F3rio");
+		Ltitle.setHorizontalAlignment(SwingConstants.CENTER);
+		Ltitle.setFont(new Font("Times New Roman", Font.BOLD, 36));
+		Ltitle.setBounds(10, 21, 554, 47);
+		Panel_init.add(Ltitle);
+		
+		JButton Binitcliente = new JButton("Relat\u00F3rio Cliente");
+		Binitcliente.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cl.show(Panel_main, "1");
+			}
+		});
+		Binitcliente.setFont(new Font("Times New Roman", Font.BOLD, 26));
+		Binitcliente.setBounds(165, 161, 247, 71);
+		Panel_init.add(Binitcliente);
+		
+		JButton Binitcontador = new JButton("Relat\u00F3rio Contador");
+		Binitcontador.setFont(new Font("Times New Roman", Font.BOLD, 25));
+		Binitcontador.setBounds(165, 303, 247, 71);
+		Panel_init.add(Binitcontador);
+		
+		JLabel Lbcliente = new JLabel("Busque por um cliente e conta espec\u00EDfica.\r\n");
+		Lbcliente.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		Lbcliente.setBounds(87, 122, 406, 28);
+		Panel_init.add(Lbcliente);
+		
+		JLabel Lbcontador = new JLabel("Cadastros realizados nos \u00FAltimos 10 dias.");
+		Lbcontador.setFont(new Font("Times New Roman", Font.PLAIN, 24));
+		Lbcontador.setBounds(95, 265, 398, 28);
+		Panel_init.add(Lbcontador);
+		
+		
+		
+		
+		
+		//tela "relatorio cliente"
+		Panel_cliente = new JPanel();
+		Panel_main.add(Panel_cliente, "1");
+		Panel_cliente.setLayout(null);
+		
+		JLabel Lcliente = new JLabel("Nome do Cliente:");
 		Lcliente.setFont(new Font("Times New Roman", Font.PLAIN, 22));
-		Lcliente.setBounds(34, 28, 73, 27);
-		contentPane.add(Lcliente);	    
+		Lcliente.setBounds(20, 10, 167, 27);
+		Panel_cliente.add(Lcliente);	    
 		
-		JLabel Lrgi = new JLabel("RGI: ");
-	    Lrgi.setFont(new Font("Times New Roman", Font.PLAIN, 22));
-	    Lrgi.setBounds(69, 171, 231, 27);
-	    contentPane.add(Lrgi);
+		JLabel Lsla = new JLabel("Mostra os dados");
+	    Lsla.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+	    Lsla.setBounds(177, 263, 231, 27);
+	    Panel_cliente.add(Lsla);
 		
 		AutoCompleteDecorator decorator;
 	    JComboBox combobox;
 	    //cria arraylist com o get, da coluna "cliente" e "rgi"
 		lista_cliente = new ArrayList();
-		lista_rgi = new ArrayList();
 	    try {
-			lista_cliente = get("cliente");	    		
-			lista_rgi = get("rgi");
+			//lista_cliente = get("cliente", "nome_cli");	    		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	    combobox = new JComboBox();
-
-	    combobox.addItem("");
+	    combobox.addItem(""); combobox.addItem("abacate"); combobox.addItem("abacaxi"); combobox.addItem("amarelo"); combobox.addItem("amanda"); combobox.addItem("amor");
 	    //adiciona cada item do arraylist no combobox
 	    for (int i = 0; i < lista_cliente.size(); i++) {
 	    	combobox.addItem(lista_cliente.get(i));
 	    }
 	    combobox.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 	    AutoCompleteDecorator.decorate(combobox);
-	    combobox.setBounds(34, 66, 288, 39);
-	    contentPane.add(combobox);
+	    combobox.setBounds(20, 40, 510, 39);
+	    Panel_cliente.add(combobox);	    
 	    //evento que ocorre quando a combobox muda
 	    combobox.addItemListener(new ItemListener() {
 	    	public void itemStateChanged(ItemEvent arg0) {
 	    		int i = lista_cliente.indexOf(combobox.getSelectedItem());
-	    		Lrgi.setText("RGI: " + lista_rgi.get(i));
+	    		
 	    	}
 	    });
+	    
+	    JLabel Lmes = new JLabel("M\u00EAs da conta:");
+	    Lmes.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+	    Lmes.setBounds(20, 95, 167, 27);
+	    Panel_cliente.add(Lmes);
+	    
+	    String[] meses = {"", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+	    JComboBox combobox_1 = new JComboBox(meses);
+	    combobox_1.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+	    combobox_1.setBounds(20, 125, 174, 39);
+	    Panel_cliente.add(combobox_1);
+	    AutoCompleteDecorator.decorate(combobox_1);
+	    
+	    JRadioButton Ragua = new JRadioButton("\u00C1gua");
+		Ragua.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				conta = "a";
+			}
+		});
+	    Ragua.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+	    Ragua.setBounds(292, 130, 91, 35);
+	    Panel_cliente.add(Ragua);
+	    
+	    JRadioButton Rluz = new JRadioButton("Luz");
+	    Rluz.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				conta = "l";
+			}
+		});
+	    Rluz.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+	    Rluz.setBounds(416, 130, 91, 35);
+	    Panel_cliente.add(Rluz);
+	    
+		ButtonGroup buttongroup = new ButtonGroup();
+		buttongroup.add(Ragua);
+		buttongroup.add(Rluz);
+		
+		JButton btnNewButton = new JButton("Voltar");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				cl.show(Panel_main, "0");
+			}
+		});
+		btnNewButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		btnNewButton.setBounds(88, 380, 130, 50);
+		Panel_cliente.add(btnNewButton);
+		
+		JButton btnGerarPdf = new JButton("Gerar PDF");
+		btnGerarPdf.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		btnGerarPdf.setBounds(370, 380, 130, 50);
+		Panel_cliente.add(btnGerarPdf);
+		
+		JLabel lblNewLabel = new JLabel("*ultimas 6 contas do cliente selecionado");
+		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 14));
+		lblNewLabel.setBounds(322, 430, 231, 22);
+		Panel_cliente.add(lblNewLabel);
+		
 
 	}
 	
@@ -111,11 +221,11 @@ public class TelaRelatorio extends JFrame {
 		// TODO Auto-generated method stub
 	}
 	
-	public static ArrayList get(String coluna) throws Exception{
+	public static ArrayList get(String tabela, String coluna) throws Exception{
 		try {
 			Connection con = FabricaConexao.getConexao();
-			PreparedStatement tabela = con.prepareStatement("SELECT * FROM conta_agua");
-			ResultSet resultado = tabela.executeQuery();
+			PreparedStatement  pegar = con.prepareStatement("SELECT * FROM " + tabela);
+			ResultSet resultado = pegar.executeQuery();
 		
 			ArrayList array = new ArrayList();
 			while (resultado.next()) {
