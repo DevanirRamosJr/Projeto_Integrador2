@@ -100,11 +100,21 @@ public class TelaLuz extends javax.swing.JFrame {
 
         jButton2 = new javax.swing.JButton();
         instalacaoField = new javax.swing.JTextField();
+		try {
+				javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("########");
+				instalacaoField= new javax.swing.JFormattedTextField(format_textField3);
+			} 
+		catch (Exception e){}
         jLabel1 = new javax.swing.JLabel();
         nomeClienteField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         vencimentoField = new javax.swing.JTextField();
+		try {
+				javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
+				vencimentoField= new javax.swing.JFormattedTextField(format_textField3);
+			} 
+		catch (Exception e){}
         jLabel4 = new javax.swing.JLabel();
         contaMesField = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();

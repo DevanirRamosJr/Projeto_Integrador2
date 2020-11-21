@@ -162,15 +162,30 @@ public class TelaAgua extends javax.swing.JFrame {
         clienteField = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         rgiField = new javax.swing.JTextField();
+        try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("########/##");
+			rgiField= new javax.swing.JFormattedTextField(format_textField3);
+			} 
+		catch (Exception e){}
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         totalField = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         contaField = new javax.swing.JTextField();
+        try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("#############");
+			contaField= new javax.swing.JFormattedTextField(format_textField3);
+			} 
+		catch (Exception e){}
         jLabel5 = new javax.swing.JLabel();
         mesField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         vencimentoField = new javax.swing.JTextField();
+        try {
+			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
+			vencimentoField= new javax.swing.JFormattedTextField(format_textField3);
+			} 
+		catch (Exception e){}
         jLabel7 = new javax.swing.JLabel();
         consumoField = new javax.swing.JTextField();
         salvarButton = new javax.swing.JButton();
