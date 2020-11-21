@@ -5,13 +5,15 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class FabricaConexao {
+	private static String user;
+	private static String password;
 	
 	public static Connection getConexao() {
 			
 			try {
-				final String url = "jdbc:mysql://localhost/projeto_integrador?verifyServerCertificate=false&useSSL=true";
-				final String usuario = "root";
-				final String senha = "123456789";
+				String url = "jdbc:mysql://localhost/projeto_integrador?verifyServerCertificate=false&useSSL=true&useTimezone=true&serverTimezone=UTC";
+				String usuario = "root";
+				String senha = "password";
 				
 				// CRIANDO CONEXAO
 				return DriverManager.getConnection(url, usuario, senha);
@@ -19,5 +21,21 @@ public class FabricaConexao {
 				throw new RuntimeException(e);
 			}
 		}
+
+	public static String getUser() {
+		return user;
+	}
+
+	public static String getPassword() {
+		return password;
+	}
+
+	public static void setUser(String user) {
+		FabricaConexao.user = user;
+	}
+
+	public static void setPassword(String password) {
+		FabricaConexao.password = password;
+	}
 
 }
