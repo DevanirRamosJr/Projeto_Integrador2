@@ -23,6 +23,7 @@ public class CriarTabelas {
 		
 		String sql = "CREATE TABLE IF NOT EXISTS cliente ("
 				+ "id_cli int PRIMARY KEY NOT NULL AUTO_INCREMENT,"
+				+ "nome_cli VARCHAR(50) NOT NULL,"
 				+ "cnpj_cli CHAR(11) NOT NULL,"
 				+ "telefone_cli VARCHAR(20) NOT NULL"
 				+ ")";
@@ -150,7 +151,7 @@ public class CriarTabelas {
 		
 		System.out.println("Tabela 'login' criada com sucesso!!!");
 		
-		//j· adiciona alguns logins
+		//j√° adiciona alguns logins
 		PreparedStatement posted = conexao.prepareStatement("INSERT IGNORE INTO login VALUES("
 				+ "'admin', 'password'),"
 				+ "('devanir', 'abcd1234')");
