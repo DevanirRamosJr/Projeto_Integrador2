@@ -1,4 +1,3 @@
-
 package source;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,6 +8,12 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.ActionListener;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -16,10 +21,6 @@ import java.sql.PreparedStatement;
  * and open the template in the editor.
  */
 
-/**
- *
- * @author jeferson
- */
 public class TelaAgua extends javax.swing.JFrame {
 
     /**
@@ -50,7 +51,12 @@ public class TelaAgua extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                search();   
+                try {
+					search();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}   
             }
         };
     
@@ -131,14 +137,14 @@ public class TelaAgua extends javax.swing.JFrame {
 	}
     
     
-    public void search() {
-        clienteField.setText(clientes.get(rgiField.getText()).getNome().toUpperCase());
-        contaField.setText(clientes.get(rgiField.getText()).getConta());
-        mesField.setText(clientes.get(rgiField.getText()).getMes());
-        consumoField.setText(clientes.get(rgiField.getText()).getConsumo());
-        totalField.setText(clientes.get(rgiField.getText()).getTotal());
-        vencimentoField.setText(clientes.get(rgiField.getText()).getVencimento());        
-    }
+    //public void search() {
+    //    clienteField.setText(clientes.get(rgiField.getText()).getNome().toUpperCase());
+    //    contaField.setText(clientes.get(rgiField.getText()).getConta());
+    //    mesField.setText(clientes.get(rgiField.getText()).getMes());
+    //    consumoField.setText(clientes.get(rgiField.getText()).getConsumo());
+    //    totalField.setText(clientes.get(rgiField.getText()).getTotal());
+    //    vencimentoField.setText(clientes.get(rgiField.getText()).getVencimento());        
+    //}
     
     
     public void clear() {
@@ -225,101 +231,132 @@ public class TelaAgua extends javax.swing.JFrame {
         });
 
         jLabel10.setText("ctrl + f");
+        
+        JButton btnAtualizar = new JButton("Atualizar");
+        btnAtualizar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					update();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
+        
+        btnExcluir = new JButton("Excluir");
+        btnExcluir.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		try {
+					delete();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(contaField, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(mesField, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(consumoField, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(totalField, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rgiField, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(clienteField, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel7)
-                            .addComponent(vencimentoField, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(salvarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8))
-                                .addGap(18, 18, 18)
-                                .addComponent(arquivoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel9))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10)
-                                    .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(contaField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jLabel6))
+        					.addPreferredGap(ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jLabel5)
+        						.addComponent(mesField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)))
+        				.addGroup(layout.createSequentialGroup()
+        					.addComponent(consumoField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+        					.addComponent(totalField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(layout.createSequentialGroup()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(layout.createSequentialGroup()
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(rgiField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
+        							.addPreferredGap(ComponentPlacement.UNRELATED)
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(jLabel4)
+        								.addComponent(clienteField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)))
+        						.addComponent(jLabel7)
+        						.addComponent(vencimentoField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+        						.addGroup(layout.createSequentialGroup()
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        								.addComponent(salvarButton, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        								.addComponent(jLabel8)
+        								.addComponent(btnAtualizar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        							.addGap(18)
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        								.addComponent(btnExcluir, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        								.addComponent(arquivoButton, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+        							.addGap(18)
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(procurarButton, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(jLabel9))
+        							.addGap(18)
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        								.addComponent(limparButton, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(jLabel10))))
+        					.addGap(0, 0, Short.MAX_VALUE)))
+        			.addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rgiField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(clienteField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(contaField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(mesField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(consumoField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(vencimentoField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(48, 48, 48)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(salvarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(arquivoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(110, Short.MAX_VALUE))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addGap(24)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(rgiField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(clienteField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+        			.addGap(18)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(contaField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(mesField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+        			.addGap(18)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel5, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(totalField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(consumoField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+        			.addGap(18)
+        			.addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(vencimentoField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        			.addGap(48)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel8)
+        				.addComponent(jLabel9)
+        				.addComponent(jLabel10))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(salvarButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(arquivoButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(procurarButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(limparButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+        			.addGap(18)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(btnAtualizar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
+        			.addContainerGap(53, Short.MAX_VALUE))
         );
+        getContentPane().setLayout(layout);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -327,12 +364,19 @@ public class TelaAgua extends javax.swing.JFrame {
 
     private void procurarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_procurarButtonActionPerformed
         // TODO add your handling code here:
-        clienteField.setText(clientes.get(rgiField.getText()).getNome().toUpperCase());
-        contaField.setText(clientes.get(rgiField.getText()).getConta());
-        mesField.setText(clientes.get(rgiField.getText()).getMes());
-        consumoField.setText(clientes.get(rgiField.getText()).getConsumo());
-        totalField.setText(clientes.get(rgiField.getText()).getTotal());
-        vencimentoField.setText(clientes.get(rgiField.getText()).getVencimento());
+    	
+    	try {
+			search();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        //clienteField.setText(clientes.get(rgiField.getText()).getNome().toUpperCase());
+        //contaField.setText(clientes.get(rgiField.getText()).getConta());
+        //mesField.setText(clientes.get(rgiField.getText()).getMes());
+        //consumoField.setText(clientes.get(rgiField.getText()).getConsumo());
+        //totalField.setText(clientes.get(rgiField.getText()).getTotal());
+        //vencimentoField.setText(clientes.get(rgiField.getText()).getVencimento());
     }//GEN-LAST:event_procurarButtonActionPerformed
 
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
@@ -415,7 +459,7 @@ public class TelaAgua extends javax.swing.JFrame {
         try {
             SalvarDados();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "Não foi possível criar arquivo");
+            JOptionPane.showMessageDialog(null, "NÃ£o foi possÃ­vel criar arquivo");
         }
     }   
     
@@ -427,7 +471,7 @@ public class TelaAgua extends javax.swing.JFrame {
                 myWriter.write(this.clientes.get(key).toString());
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "Não foi possível criar arquivo");
+            JOptionPane.showMessageDialog(null, "NÃ£o foi possÃ­vel criar arquivo");
         }
     }
     /**
@@ -464,6 +508,97 @@ public class TelaAgua extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+	public void search() throws SQLException {
+			
+	    	Connection conexao = FabricaConexao.getConexao();
+	    	
+	    	// Atribuindo oque foi digitado no textField a variavel x
+	    	String x = rgiField.getText();
+	    	
+	    	// Pesquisando no BD oque foi digitado no textField
+			String sql = "SELECT * FROM conta_agua WHERE rgi='"+ x + "'";
+			
+			Statement stmt = conexao.createStatement();
+			
+			// ESTA SENDO ATRIBUIDO A VARIAVEL RESULTADO O RETORNO DA VARIAVEL SQL COM A CONSULTA DO BANCO
+			ResultSet resultado = stmt.executeQuery(sql);
+			
+			resultado.next();
+			
+			// Setando o retorno do BD nos textField
+			rgiField.setText(resultado.getString("rgi"));
+			clienteField.setText(resultado.getString("nome"));
+			contaField.setText(resultado.getString("conta"));
+			mesField.setText(resultado.getString("mes"));
+			consumoField.setText(resultado.getString("consumo"));
+			totalField.setText(resultado.getString("total"));
+			vencimentoField.setText(resultado.getString("vencimento"));
+
+			
+			conexao.close();
+		}
+	
+	
+	public void update() throws SQLException {
+	    	
+	    	Connection conexao = FabricaConexao.getConexao();
+	    	
+	    	// Atribuindo oque foi digitado no textField a variavel x
+	    	String x = rgiField.getText();
+			
+	    	// String SQL
+			String updateSQL = "UPDATE conta_agua SET nome = ?, conta = ?, mes = ?, consumo = ?, total = ?, vencimento = ? WHERE rgi='"+ x + "'";
+			
+			// Recebendo o updateSQL
+			PreparedStatement stmt = conexao.prepareStatement(updateSQL);		
+			
+			// Setando no banco
+			stmt.setString(1, clienteField.getText());
+			stmt.setString(2, contaField.getText());
+			stmt.setString(3, mesField.getText());
+			stmt.setString(4, consumoField.getText());
+			stmt.setString(5, totalField.getText());
+			stmt.setString(6, vencimentoField.getText());
+			stmt.executeUpdate();
+			
+			System.out.println("Dados atualizados");
+			
+			// Fechando conexoes
+			stmt.close();
+			conexao.close();
+	    }
+	
+	
+	public void delete() throws SQLException {
+	    	
+	    	Connection conexao = FabricaConexao.getConexao();
+	    	
+	    	// Atribuindo oque foi digitado no textField a variavel x
+	    	String x = rgiField.getText();
+	    	
+	    	String deleteSQL = "DELETE FROM conta_agua WHERE rgi='"+ x + "'";
+	    	
+	    	PreparedStatement stmt = conexao.prepareStatement(deleteSQL);
+	    	
+	    	stmt.execute();
+	    	
+	    	rgiField.setText("");
+	    	clienteField.setText("");
+	    	contaField.setText("");
+	    	mesField.setText("");
+	    	consumoField.setText("");
+	    	totalField.setText("");
+	    	vencimentoField.setText("");
+	    	
+	    	System.out.println("Dados excluidos com sucesso");
+	
+	    	
+	    	conexao.close(); 	
+	    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton arquivoButton;
@@ -490,5 +625,5 @@ public class TelaAgua extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private ArrayList<ContaAgua> historico;
     private HashMap<String, ContaAgua> clientes;
-
+    private JButton btnExcluir;
 }

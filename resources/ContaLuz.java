@@ -5,10 +5,6 @@
  */
 package source;
 
-/**
- *
- * @author jeferson
- */
 public class ContaLuz {
     
     private String instalacao;

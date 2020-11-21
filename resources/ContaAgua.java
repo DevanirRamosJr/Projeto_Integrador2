@@ -4,10 +4,6 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author jeferson
- */
 package source;
 
 public class ContaAgua {

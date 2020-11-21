@@ -4,10 +4,6 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author jeferson
- */
 package source;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -22,7 +18,7 @@ public class TelaInicial extends javax.swing.JFrame {
         setTitle("Menu");
         initComponents();
         
-        Action aguaAction = new AbstractAction("Água") {
+        Action aguaAction = new AbstractAction("Ã�gua") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
@@ -32,7 +28,7 @@ public class TelaInicial extends javax.swing.JFrame {
         }
     };
     
-    String key = "Água";
+    String key = "Ã�gua";
     
     aguaButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK), key);
     
@@ -81,7 +77,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        aguaButton.setText("Água");
+        aguaButton.setText("Ã�gua");
         aguaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aguaButtonActionPerformed(evt);
@@ -100,7 +96,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        relatorioButton.setText("Relatório");
+        relatorioButton.setText("RelatÃ³rio");
         relatorioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 new TelaRelatorio().setVisible(true);
