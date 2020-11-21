@@ -346,7 +346,7 @@ public class TelaLuz extends javax.swing.JFrame {
         // TODO add your handling code here:
         ContaLuz cliente = new ContaLuz(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
         String instalacao = instalacaoField.getText();
-        double x = checarTotal();
+        //double x = checarTotal();
         
         try {
 			post(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
@@ -358,9 +358,9 @@ public class TelaLuz extends javax.swing.JFrame {
         if(checarDados(cliente)==0) {
             
             if(!clientes.containsKey(instalacao)) {
-                if(x != Double.valueOf(totalPagarField.getText())) {
-                    JOptionPane.showMessageDialog(null, "Total divergente");
-                }
+                //if(x != Double.valueOf(totalPagarField.getText())) {
+                //    JOptionPane.showMessageDialog(null, "Total divergente");
+                //}
                 this.clientes.put(instalacao, cliente);
                 this.historico.add(cliente);
             } else {
@@ -384,7 +384,7 @@ public class TelaLuz extends javax.swing.JFrame {
     public void save() {
         ContaLuz cliente = new ContaLuz(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
         String instalacao = instalacaoField.getText();
-        double x = checarTotal();
+        //double x = checarTotal();
         
         try {
 			post(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
@@ -396,9 +396,9 @@ public class TelaLuz extends javax.swing.JFrame {
         if(checarDados(cliente)==0) {
             
             if(!clientes.containsKey(instalacao)) {
-                if(x != Double.valueOf(totalPagarField.getText())) {
-                    JOptionPane.showMessageDialog(null, "Total divergente");
-                }
+                //if(x != Double.valueOf(totalPagarField.getText())) {
+                //    JOptionPane.showMessageDialog(null, "Total divergente");
+                //}
                 this.clientes.put(instalacao, cliente);
                 this.historico.add(cliente);
             } else {
@@ -509,22 +509,22 @@ public class TelaLuz extends javax.swing.JFrame {
     //    }        
     //}
     
-    public double checarTotal() {
-        
-        double tarifa = Double.valueOf(tarifaField.getText());
-        double pis = Double.valueOf(pisField.getText());
-        double cofins = Double.valueOf(cofinsField.getText());
-        double icms = Double.valueOf(icmsField.getText());
-        double total = Double.valueOf(totalPagarField.getText());
-        double quantidade = Double.valueOf(consumoField.getText());
-        
-        double totalReal = (total*pis/100) + (total*cofins/100) + (total*icms/100) + (quantidade*tarifa);
-        
-        totalReal = Math.round(totalReal*100) / 100.0;
-        
-        return totalReal;
-        
-    }
+    //public double checarTotal() {
+    //    
+    //    double tarifa = Double.valueOf(tarifaField.getText());
+    //    double pis = Double.valueOf(pisField.getText());
+    //    double cofins = Double.valueOf(cofinsField.getText());
+    //    double icms = Double.valueOf(icmsField.getText());
+    //    double total = Double.valueOf(totalPagarField.getText());
+    //    double quantidade = Double.valueOf(consumoField.getText());
+    //    
+    //    double totalReal = (total*pis/100) + (total*cofins/100) + (total*icms/100) + (quantidade*tarifa);
+    //    
+    //   totalReal = Math.round(totalReal*100) / 100.0;
+    //    
+    //    return totalReal;
+    //    
+    //}
     
     
     public int checarDados(ContaLuz dados) {
