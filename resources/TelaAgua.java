@@ -395,6 +395,46 @@ public class TelaAgua extends javax.swing.JFrame {
     }//GEN-LAST:event_procurarButtonActionPerformed
 
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
+
+    	
+		if (rgiField.getText().equals("        /  ")) {
+			rgiField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo RGI é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (clienteField.getText().equals("")) {
+			clienteField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo CLIENTE é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (contaField.getText().equals("             ")) {
+			contaField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo NUMERO DA CONTA é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (mesField.getText().equals("")) {
+			mesField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo MES DE REFERENCIA é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (consumoField.getText().equals("")) {
+			consumoField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo CONSUMO M3 é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (totalField.getText().equals("")) {
+			totalField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo TOTAL A PAGAR é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		if (vencimentoField.getText().equals("  /  /    ")) {
+			vencimentoField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo VENCIMENTO é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	
+
+    	
         // TODO add your handling code here:
         ContaAgua cliente = new ContaAgua(rgiField.getText(), clienteField.getText(), contaField.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField.getText());
         

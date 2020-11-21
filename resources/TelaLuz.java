@@ -343,6 +343,59 @@ public class TelaLuz extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
+    	
+    	if (instalacaoField.getText().equals("        ")) {
+    		instalacaoField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo INSTALAÇÃO é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (nomeClienteField.getText().equals("")) {
+    		nomeClienteField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo CLIENTE é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (vencimentoField.getText().equals("  /  /    ")) {
+    		vencimentoField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo VENCIMENTO é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (contaMesField.getText().equals("")) {
+    		contaMesField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo CONTA MES é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (consumoField.getText().equals("")) {
+    		consumoField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo CONSUMO KWH é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (tarifaField.getText().equals("")) {
+    		tarifaField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo TARIFA é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (pisField.getText().equals("")) {
+    		pisField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo PIS é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (cofinsField.getText().equals("")) {
+    		cofinsField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo CONFINS é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (icmsField.getText().equals("")) {
+    		icmsField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo ICMS é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (totalPagarField.getText().equals("")) {
+    		totalPagarField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo TOTAL A PAGAR é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}    	
+    	
+    	
         // TODO add your handling code here:
         ContaLuz cliente = new ContaLuz(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
         String instalacao = instalacaoField.getText();
