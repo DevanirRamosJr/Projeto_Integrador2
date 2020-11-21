@@ -115,7 +115,7 @@ public class TelaLogin extends JFrame {
 				}
 				System.out.println(nomes.indexOf(Tnome.getText()));
 				if (nomes.indexOf(Tnome.getText()) == -1) {
-					Laviso.setText("*senha e/ou nome errado");
+					Laviso.setText("*senha e/ou nome errado(s)");
 					
 				}
 				else if (String.valueOf(Password.getPassword()).equals(senhas.get(nomes.indexOf(Tnome.getText())))) {
@@ -145,7 +145,7 @@ public class TelaLogin extends JFrame {
 					}
 					System.out.println(nomes.indexOf(Tnome.getText()));
 					if (nomes.indexOf(Tnome.getText()) == -1) {
-						Laviso.setText("*senha e/ou nome errado");
+						Laviso.setText("*senha e/ou nome errado(s)");
 						
 					}
 					else if (String.valueOf(Password.getPassword()).equals(senhas.get(nomes.indexOf(Tnome.getText())))) {

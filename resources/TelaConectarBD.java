@@ -82,7 +82,8 @@ public class TelaConectarBD extends JFrame {
 		Bcriar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				FabricaConexao.setUser(Tuser.getText());
-				FabricaConexao.setPassword(String.valueOf(Password.getPassword()));	
+				FabricaConexao.setPassword(String.valueOf(Password.getPassword()));
+				FabricaConexao.getConexao();			
 				new TelaLogin().setVisible(true);
 				dispose();
 			}
@@ -95,6 +96,7 @@ public class TelaConectarBD extends JFrame {
 		        if (keyCode == KeyEvent.VK_ENTER) {
 					FabricaConexao.setUser(Tuser.getText());
 					FabricaConexao.setPassword(String.valueOf(Password.getPassword()));
+					FabricaConexao.getConexao();
 					new TelaLogin().setVisible(true);
 					dispose();
 		        }
