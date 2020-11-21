@@ -103,10 +103,9 @@ public class TelaPrepararBanco extends JFrame {
 					CriarBanco.setPassword(String.valueOf(Password.getPassword()));
 					FabricaConexao.setUser(Tuser.getText());
 					FabricaConexao.setPassword(String.valueOf(Password.getPassword()));
-					FabricaConexao.getConexao();
 					CriarBanco.main();			
 					CriarTabelas.main();
-					int input = JOptionPane.showConfirmDialog(null, "Banco Criado com Sucesso!", "ConfirmaÁ„o", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+					int input = JOptionPane.showConfirmDialog(null, "Banco Criado com Sucesso!", "Confirma√ß√£o", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 					if (input == 0) {
 						cl.show(panel_main, "1");
 					}
@@ -118,7 +117,7 @@ public class TelaPrepararBanco extends JFrame {
 			}
 		});
 		Bcriar.addKeyListener(new KeyAdapter() {
-			//quando aperta ENTER enquanto o bot„o estiver selecionado
+			//quando aperta ENTER enquanto o bot√£o estiver selecionado
 			@Override
 			public void keyPressed(KeyEvent e) {
 				int keyCode = e.getKeyCode();
@@ -128,10 +127,9 @@ public class TelaPrepararBanco extends JFrame {
 						CriarBanco.setPassword(String.valueOf(Password.getPassword()));
 						FabricaConexao.setUser(Tuser.getText());
 						FabricaConexao.setPassword(String.valueOf(Password.getPassword()));
-						FabricaConexao.getConexao();;
 						CriarBanco.main();			
 						CriarTabelas.main();
-						int input = JOptionPane.showConfirmDialog(null, "Banco Criado com Sucesso!", "ConfirmaÁ„o", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
+						int input = JOptionPane.showConfirmDialog(null, "Banco Criado com Sucesso!", "Confirma√ß√£o", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE);
 						if (input == 0) {
 							cl.show(panel_main, "1");
 						}
@@ -190,7 +188,7 @@ public class TelaPrepararBanco extends JFrame {
 					e1.printStackTrace();
 				}
 				if (nomes.indexOf(Tnome.getText()) >= 0) {
-					Laviso.setText("*nome j· existe");
+					Laviso.setText("*nome j√° existe");
 				}
 				else if (Tnome.getText().length() < 6) {
 					Laviso.setText("*nome menor que 5");
@@ -227,7 +225,7 @@ public class TelaPrepararBanco extends JFrame {
 						e1.printStackTrace();
 					}
 					if (nomes.indexOf(Tnome.getText()) >= 0) {
-						Laviso.setText("*nome j· existe");
+						Laviso.setText("*nome j√° existe");
 					}
 					else if (Tnome.getText().length() < 6) {
 						Laviso.setText("*nome menor que 5");
