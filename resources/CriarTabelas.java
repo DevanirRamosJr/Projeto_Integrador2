@@ -41,7 +41,6 @@ public class CriarTabelas {
 		posted.executeUpdate();
 		
 		System.out.println("Cliente - dados criados com sucesso!!!");
-		conexao.close();
 	}
 	
 	public static void local() throws SQLException {
@@ -73,7 +72,6 @@ public class CriarTabelas {
 				+ "('6', 'Rua Coronel Manuel', '', '98745635', 'São José', 'SP', 'BR')");
 		posted.executeUpdate();
 		System.out.println("Local - dados criados com sucesso!!!");
-		conexao.close();
 	}
 	
 	public static void ref_agua() throws SQLException {
@@ -81,7 +79,7 @@ public class CriarTabelas {
 		Connection conexao = FabricaConexao.getConexao();
 		
 		String sql = "CREATE TABLE IF NOT EXISTS ref_agua ("
-				+ "mes VARCHAR(19) PRIMARY KEY NOT NULL,"
+				+ "mes VARCHAR(19) NOT NULL,"
 				+ "rgi VARCHAR(15) NOT NULL,"
 				+ "numero_conta VARCHAR(15) NOT NULL,"
 				+ "consumo VARCHAR(15) NOT NULL,"
@@ -92,9 +90,17 @@ public class CriarTabelas {
 		
 		Statement stmt = conexao.createStatement();
 		stmt.execute(sql);
-		
 		System.out.println("Ref_agua criada com sucesso!!!");
-		conexao.close();
+		
+		PreparedStatement posted = conexao.prepareStatement("INSERT IGNORE INTO ref_agua (mes, rgi, numero_conta, consumo, total_pagar, vencimento, digitador) VALUES"
+				+ "('Outubro', '05101222/72', '1490051012221', '19', '109,53', '02/10/2020', 'Devanir'),"
+				+ "('Dezembro', '05101222/72', '1492051012221', '18', '102,78', '06/12/2020', 'Devanir'),"
+				+ "('Setembro', '10569542/51', '1490000832181', '26', '180,78', '10/09/2020', 'Devanir'),"
+				+ "('Outubro', '10569542/51', '149005092421', '26', '185,09', '08/10/2020', 'Devanir'),"
+				+ "('Novembro', '10569542/51', '149015139973', '25', '178,17', '08/11/2020', 'Jonatas'),"
+				+ "('Dezembro', '30269194/07', '1492101014478', '21', '129,55', '04/12/2020', 'Tairik')");
+		posted.executeUpdate();
+		System.out.println("Ref_agua - dados criados com sucesso!!!");
 	}
 	
 	public static void conta_agua() throws SQLException {
@@ -109,9 +115,15 @@ public class CriarTabelas {
 		
 		Statement stmt = conexao.createStatement();
 		stmt.execute(sql);
-		
 		System.out.println("Conta_agua criada com sucesso!!!");
-		conexao.close();
+		
+		PreparedStatement posted = conexao.prepareStatement("INSERT IGNORE INTO conta_agua (rgi, id_local) VALUES"
+				+ "('05101222/72', '1'),"
+				+ "('10569542/51', '2'),"
+				+ "('30269194/07', '5')");
+		posted.executeUpdate();
+		
+		System.out.println("Conta_luz - dados criados com sucesso!!!");
 	}
 	
 	public static void ref_luz() throws SQLException {
@@ -119,7 +131,7 @@ public class CriarTabelas {
 		Connection conexao = FabricaConexao.getConexao();
 		
 		String sql = "CREATE TABLE IF NOT EXISTS ref_luz ("
-				+ "mes VARCHAR(9) PRIMARY KEY NOT NULL,"
+				+ "mes VARCHAR(9) NOT NULL,"
 				+ "instalacao VARCHAR(15) NOT NULL,"
 				+ "vencimento CHAR(10) NOT NULL,"
 				+ "consumo VARCHAR(15) NOT NULL,"
@@ -133,9 +145,16 @@ public class CriarTabelas {
 		
 		Statement stmt = conexao.createStatement();
 		stmt.execute(sql);
-		
 		System.out.println("Ref_luz criada com sucesso!!!");
-		conexao.close();
+		
+		PreparedStatement posted = conexao.prepareStatement("INSERT IGNORE INTO ref_luz (mes, instalacao, vencimento, consumo, tarifa, pis, confins, icms, total_pagar, digitador) VALUES"
+				+ "('Outubro', '8960446', '09/11/2020', '258', '0,266885710', '1,30', '6,02', '47,77', '191,07', 'Devanir'),"
+				+ "('Setembro', '8960446', '07/10/2020', '266', '0,26449000', '0,63', '2,90', '47,79', '194,50', 'Devanir'),"
+				+ "('Agosto', '8960446', '09/09/2020', '231', '0,26449000', '0,36', '1,65', '41,16', '164,62', 'Devanir'),"
+				+ "('Setembro', '9548625', '10/10/2020', '255', '0,26522000', '0,60', '3,95', '44,53', '172,11', 'Jonatas'),"
+				+ "('Outubro', '5894562', '08/11/2020', '262', '0,26414000', '0,90', '4,60', '46,22', '180,34', 'Tairik')");
+		posted.executeUpdate();
+		System.out.println("Ref_agua - dados criados com sucesso!!!");
 	}
 	
 	public static void conta_luz() throws SQLException {
@@ -150,9 +169,15 @@ public class CriarTabelas {
 		
 		Statement stmt = conexao.createStatement();
 		stmt.execute(sql);
-		
 		System.out.println("Conta_luz criada com sucesso!!!");
-		conexao.close();
+		
+		PreparedStatement posted = conexao.prepareStatement("INSERT IGNORE INTO conta_luz (instalacao, id_local) VALUES"
+				+ "('8960446', '1'),"
+				+ "('9548625', '2'),"
+				+ "('5894562', '3')");
+		posted.executeUpdate();
+		
+		System.out.println("Conta_agua - dados criados com sucesso!!!");
 	}
 	
 	public static void login() throws SQLException {
