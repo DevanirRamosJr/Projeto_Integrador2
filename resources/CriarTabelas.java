@@ -93,12 +93,12 @@ public class CriarTabelas {
 		System.out.println("Ref_agua criada com sucesso!!!");
 		
 		PreparedStatement posted = conexao.prepareStatement("INSERT IGNORE INTO ref_agua (mes, rgi, numero_conta, consumo, total_pagar, vencimento, digitador) VALUES"
-				+ "('Outubro', '05101222/72', '1490051012221', '19', '109,53', '02/10/2020', 'Devanir'),"
-				+ "('Dezembro', '05101222/72', '1492051012221', '18', '102,78', '06/12/2020', 'Devanir'),"
-				+ "('Setembro', '10569542/51', '1490000832181', '26', '180,78', '10/09/2020', 'Devanir'),"
-				+ "('Outubro', '10569542/51', '149005092421', '26', '185,09', '08/10/2020', 'Devanir'),"
-				+ "('Novembro', '10569542/51', '149015139973', '25', '178,17', '08/11/2020', 'Jonatas'),"
-				+ "('Dezembro', '30269194/07', '1492101014478', '21', '129,55', '04/12/2020', 'Tairik')");
+				+ "('Outubro', '05101222/72', '1490051012221', '19', '109.53', '02/10/2020', 'Devanir'),"
+				+ "('Dezembro', '05101222/72', '1492051012221', '18', '102.78', '06/12/2020', 'Devanir'),"
+				+ "('Setembro', '10569542/51', '1490000832181', '26', '180.78', '10/09/2020', 'Devanir'),"
+				+ "('Outubro', '10569542/51', '149005092421', '26', '185.09', '08/10/2020', 'Devanir'),"
+				+ "('Novembro', '10569542/51', '149015139973', '25', '178.17', '08/11/2020', 'Jonatas'),"
+				+ "('Dezembro', '30269194/07', '1492101014478', '21', '129.55', '04/12/2020', 'Tairik')");
 		posted.executeUpdate();
 		System.out.println("Ref_agua - dados criados com sucesso!!!");
 	}
@@ -148,11 +148,11 @@ public class CriarTabelas {
 		System.out.println("Ref_luz criada com sucesso!!!");
 		
 		PreparedStatement posted = conexao.prepareStatement("INSERT IGNORE INTO ref_luz (mes, instalacao, vencimento, consumo, tarifa, pis, confins, icms, total_pagar, digitador) VALUES"
-				+ "('Outubro', '8960446', '09/11/2020', '258', '0,266885710', '1,30', '6,02', '47,77', '191,07', 'Devanir'),"
-				+ "('Setembro', '8960446', '07/10/2020', '266', '0,26449000', '0,63', '2,90', '47,79', '194,50', 'Devanir'),"
-				+ "('Agosto', '8960446', '09/09/2020', '231', '0,26449000', '0,36', '1,65', '41,16', '164,62', 'Devanir'),"
-				+ "('Setembro', '9548625', '10/10/2020', '255', '0,26522000', '0,60', '3,95', '44,53', '172,11', 'Jonatas'),"
-				+ "('Outubro', '5894562', '08/11/2020', '262', '0,26414000', '0,90', '4,60', '46,22', '180,34', 'Tairik')");
+				+ "('Outubro', '8960446', '09/11/2020', '258', '0.266885710', '1.30', '6.02', '47.77', '191.07', 'Devanir'),"
+				+ "('Setembro', '8960446', '07/10/2020', '266', '0.26449000', '0.63', '2.90', '47.79', '194.50', 'Devanir'),"
+				+ "('Agosto', '8960446', '09/09/2020', '231', '0.26449000', '0.36', '1.65', '41.16', '164.62', 'Devanir'),"
+				+ "('Setembro', '9548625', '10/10/2020', '255', '0.26522000', '0.60', '3.95', '44.53', '172.11', 'Jonatas'),"
+				+ "('Outubro', '5894562', '08/11/2020', '262', '0.26414000', '0.90', '4.60', '46.22', '180.34', 'Tairik')");
 		posted.executeUpdate();
 		System.out.println("Ref_agua - dados criados com sucesso!!!");
 	}

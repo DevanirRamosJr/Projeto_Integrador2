@@ -22,12 +22,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.awt.event.ItemEvent;
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
@@ -36,7 +40,32 @@ import javax.swing.JRadioButton;
 
 public class TelaRelatorio extends JFrame {
 	private ArrayList lista_cliente;
+	private ArrayList conta_agua_id;
+	private ArrayList conta_agua_rgi;
+	private ArrayList ref_agua_rgi;
+	private ArrayList ref_agua_mes;
+	private ArrayList ref_agua_consumo;
+	private ArrayList ref_agua_venc;
+	private ArrayList ref_agua_numero;
+	private ArrayList conta_luz_id;
+	private ArrayList conta_luz_instalacao;
+	private ArrayList ref_luz_instalacao;
+	private ArrayList ref_luz_mes;
+	private ArrayList ref_luz_consumo;
+	private ArrayList ref_luz_venc;
+	private ArrayList consumo;
+	private ArrayList vencimento;
+	private ArrayList cidade;
+	private ArrayList digitador;
+	private ArrayList total;
+	private ArrayList tarifa;
+	private ArrayList pis;
+	private ArrayList icms;
+	private ArrayList confins;
+	private String rgi;
+
 	private String conta;
+	
 	
 	private JPanel Panel_cliente;
 
@@ -71,45 +100,6 @@ public class TelaRelatorio extends JFrame {
 		Panel_main.setLayout(new CardLayout(0, 0));
 		CardLayout cl = (CardLayout)(Panel_main.getLayout());
 		
-		JPanel Panel_init = new JPanel();
-		Panel_main.add(Panel_init, "0");
-		Panel_init.setLayout(null);
-		
-		
-		
-		
-		//tela inicial
-		JLabel Ltitle = new JLabel("Tipo de Relat\u00F3rio");
-		Ltitle.setHorizontalAlignment(SwingConstants.CENTER);
-		Ltitle.setFont(new Font("Times New Roman", Font.BOLD, 36));
-		Ltitle.setBounds(10, 21, 554, 47);
-		Panel_init.add(Ltitle);
-		
-		JButton Binitcliente = new JButton("Relat\u00F3rio Cliente");
-		Binitcliente.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				cl.show(Panel_main, "1");
-			}
-		});
-		Binitcliente.setFont(new Font("Times New Roman", Font.BOLD, 26));
-		Binitcliente.setBounds(165, 161, 247, 71);
-		Panel_init.add(Binitcliente);
-		
-		JButton Binitcontador = new JButton("Relat\u00F3rio Contador");
-		Binitcontador.setFont(new Font("Times New Roman", Font.BOLD, 25));
-		Binitcontador.setBounds(165, 303, 247, 71);
-		Panel_init.add(Binitcontador);
-		
-		JLabel Lbcliente = new JLabel("Busque por um cliente e conta espec\u00EDfica.\r\n");
-		Lbcliente.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-		Lbcliente.setBounds(87, 122, 406, 28);
-		Panel_init.add(Lbcliente);
-		
-		JLabel Lbcontador = new JLabel("Cadastros realizados nos \u00FAltimos 10 dias.");
-		Lbcontador.setFont(new Font("Times New Roman", Font.PLAIN, 24));
-		Lbcontador.setBounds(95, 265, 398, 28);
-		Panel_init.add(Lbcontador);
-		
 		
 		
 		
@@ -118,42 +108,91 @@ public class TelaRelatorio extends JFrame {
 		Panel_cliente = new JPanel();
 		Panel_main.add(Panel_cliente, "1");
 		Panel_cliente.setLayout(null);
+		cl.show(Panel_main, "1");
 		
 		JLabel Lcliente = new JLabel("Nome do Cliente:");
 		Lcliente.setFont(new Font("Times New Roman", Font.PLAIN, 22));
 		Lcliente.setBounds(20, 10, 167, 27);
 		Panel_cliente.add(Lcliente);	    
 		
-		JLabel Lsla = new JLabel("Mostra os dados");
-	    Lsla.setFont(new Font("Times New Roman", Font.PLAIN, 22));
-	    Lsla.setBounds(177, 263, 231, 27);
-	    Panel_cliente.add(Lsla);
+		JLabel Ltotal = new JLabel("Valor Total:");
+	    Ltotal.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+	    Ltotal.setBounds(320, 260, 204, 27);
+	    Panel_cliente.add(Ltotal);
+	    
+	    JLabel Lrgi = new JLabel("RGI/Instala\u00E7\u00E3o:");
+		Lrgi.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		Lrgi.setBounds(43, 209, 204, 27);
+		Panel_cliente.add(Lrgi);
+		
+		JLabel Lconsumo = new JLabel("Consumo:");
+		Lconsumo.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		Lconsumo.setBounds(44, 260, 167, 27);
+		Panel_cliente.add(Lconsumo);
+		
+		JLabel Lvenc = new JLabel("Vencimento:");
+		Lvenc.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		Lvenc.setBounds(320, 209, 239, 27);
+		Panel_cliente.add(Lvenc);
+		
+		JLabel Lcidade = new JLabel("Cidade:");
+		Lcidade.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		Lcidade.setBounds(43, 314, 215, 27);
+		Panel_cliente.add(Lcidade);
+		
+		JLabel Ldigitador = new JLabel("Digitador:");
+		Ldigitador.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+		Ldigitador.setBounds(320, 314, 215, 27);
+		Panel_cliente.add(Ldigitador);
 		
 		AutoCompleteDecorator decorator;
-	    JComboBox combobox;
+	    JComboBox combobox_cliente;
 	    //cria arraylist com o get, da coluna "cliente" e "rgi"
 		lista_cliente = new ArrayList();
+		conta_agua_id = new ArrayList();
+		conta_agua_rgi = new ArrayList();
+		ref_agua_rgi = new ArrayList();
+		ref_agua_mes = new ArrayList();
+		ref_agua_consumo = new ArrayList();
+		ref_agua_venc = new ArrayList();
+		conta_luz_id = new ArrayList();
+		conta_luz_instalacao = new ArrayList();
+		ref_luz_instalacao = new ArrayList();
+		ref_luz_mes = new ArrayList();
+		ref_luz_consumo = new ArrayList();
+		ref_luz_venc = new ArrayList();
 	    try {
-			//lista_cliente = get("cliente", "nome_cli");	    		
-		} catch (Exception e) {
+			lista_cliente = get("cliente", "nome_cli");	   
+			conta_agua_id = get("conta_agua", "id_local");
+			conta_agua_rgi = get("conta_agua", "rgi");
+			ref_agua_rgi = get("ref_agua", "rgi");
+			ref_agua_mes = get("ref_agua", "mes");
+			ref_agua_consumo = get("ref_agua", "consumo");
+			ref_agua_venc = get("ref_agua", "vencimento");
+			conta_luz_id = get("conta_luz", "id_local");
+			conta_luz_instalacao = get("conta_luz", "instalacao");
+			ref_luz_instalacao = get("ref_luz", "instalacao");
+			ref_luz_mes = get("ref_luz", "mes");
+			ref_luz_consumo = get("ref_luz", "consumo");
+			ref_luz_venc = get("ref_luz", "vencimento");
+	    } catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    combobox = new JComboBox();
-	    combobox.addItem(""); combobox.addItem("abacate"); combobox.addItem("abacaxi"); combobox.addItem("amarelo"); combobox.addItem("amanda"); combobox.addItem("amor");
-	    //adiciona cada item do arraylist no combobox
+	    combobox_cliente = new JComboBox();
+	    combobox_cliente.addItem(""); //combobox.addItem("abacate"); combobox.addItem("abacaxi"); combobox.addItem("amarelo"); combobox.addItem("amanda"); combobox.addItem("amor");
+	    //adiciona cada item do arraylist no combobox}
 	    for (int i = 0; i < lista_cliente.size(); i++) {
-	    	combobox.addItem(lista_cliente.get(i));
+	    	combobox_cliente.addItem(lista_cliente.get(i));
 	    }
-	    combobox.setFont(new Font("Times New Roman", Font.PLAIN, 22));
-	    AutoCompleteDecorator.decorate(combobox);
-	    combobox.setBounds(20, 40, 510, 39);
-	    Panel_cliente.add(combobox);	    
+	    combobox_cliente.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+	    AutoCompleteDecorator.decorate(combobox_cliente);
+	    combobox_cliente.setBounds(20, 40, 510, 39);
+	    Panel_cliente.add(combobox_cliente);	    
 	    //evento que ocorre quando a combobox muda
-	    combobox.addItemListener(new ItemListener() {
+	    combobox_cliente.addItemListener(new ItemListener() {
 	    	public void itemStateChanged(ItemEvent arg0) {
-	    		int i = lista_cliente.indexOf(combobox.getSelectedItem());
-	    		
+	   		
 	    	}
 	    });
 	    
@@ -163,16 +202,16 @@ public class TelaRelatorio extends JFrame {
 	    Panel_cliente.add(Lmes);
 	    
 	    String[] meses = {"", "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-	    JComboBox combobox_1 = new JComboBox(meses);
-	    combobox_1.setFont(new Font("Times New Roman", Font.PLAIN, 22));
-	    combobox_1.setBounds(20, 125, 174, 39);
-	    Panel_cliente.add(combobox_1);
-	    AutoCompleteDecorator.decorate(combobox_1);
+	    JComboBox combobox_mes = new JComboBox(meses);
+	    combobox_mes.setFont(new Font("Times New Roman", Font.PLAIN, 22));
+	    combobox_mes.setBounds(20, 125, 174, 39);
+	    Panel_cliente.add(combobox_mes);
+	    AutoCompleteDecorator.decorate(combobox_mes);
 	    
 	    JRadioButton Ragua = new JRadioButton("\u00C1gua");
 		Ragua.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				conta = "a";
+				conta = "agua";
 			}
 		});
 	    Ragua.setFont(new Font("Times New Roman", Font.PLAIN, 22));
@@ -182,7 +221,7 @@ public class TelaRelatorio extends JFrame {
 	    JRadioButton Rluz = new JRadioButton("Luz");
 	    Rluz.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
-				conta = "l";
+				conta = "luz";
 			}
 		});
 	    Rluz.setFont(new Font("Times New Roman", Font.PLAIN, 22));
@@ -193,25 +232,125 @@ public class TelaRelatorio extends JFrame {
 		buttongroup.add(Ragua);
 		buttongroup.add(Rluz);
 		
-		JButton btnNewButton = new JButton("Voltar");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton Bver = new JButton("Ver");
+		Bver.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				cl.show(Panel_main, "0");
+				Lrgi.setText("RGI/Instalação:");
+				Lconsumo.setText("Consumo:");
+				Lvenc.setText("Vencimento:");
+				Ltotal.setText("Valor Total:");
+				Ldigitador.setText("Digitador:");
+				Lcidade.setText("Cidade:");
+				if (conta.equals("agua")) {
+					if (conta_agua_id.contains(String.valueOf(combobox_cliente.getSelectedIndex()))) {
+						int id = conta_agua_id.indexOf(String.valueOf(combobox_cliente.getSelectedIndex()));
+						rgi = String.valueOf(conta_agua_rgi.get(id));
+						System.out.print(ref_agua_rgi.indexOf(rgi));
+						try {
+							consumo = new ArrayList(getWhere("ref_agua", "rgi", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "consumo"));
+							vencimento = new ArrayList(getWhere("ref_agua", "rgi", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "vencimento"));
+							total = new ArrayList(getWhere("ref_agua", "rgi", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "total_pagar"));
+							digitador = new ArrayList(getWhere("ref_agua", "rgi", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "digitador"));
+							cidade = new ArrayList(getCidade(String.valueOf(combobox_cliente.getSelectedIndex()), "cidade"));
+							Lrgi.setText("RGI: " + rgi);
+							Lcidade.setText("Cidade: " + String.valueOf(cidade.get(0)));
+							Lconsumo.setText("Consumo: " + String.valueOf(consumo.get(0)));
+							Lvenc.setText("Vencimento: " + String.valueOf(vencimento.get(0)));
+							Ltotal.setText("Total:" + String.valueOf(total.get(0)));
+							Ldigitador.setText("Digitador: " + String.valueOf(digitador.get(0)));
+							
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+				else if (conta.equals("luz")) {
+					if (conta_luz_id.contains(String.valueOf(combobox_cliente.getSelectedIndex()))) {
+						int id = conta_luz_id.indexOf(String.valueOf(combobox_cliente.getSelectedIndex()));
+						rgi = String.valueOf(conta_luz_instalacao.get(id));
+						System.out.print(ref_luz_instalacao.indexOf(rgi));
+						try {
+							consumo = new ArrayList(getWhere("ref_luz", "instalacao", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "consumo"));
+							vencimento = new ArrayList(getWhere("ref_luz", "instalacao", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "vencimento"));
+							total = new ArrayList(getWhere("ref_luz", "instalacao", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "total_pagar"));
+							tarifa = new ArrayList(getWhere("ref_luz", "instalacao", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "tarifa"));
+							System.out.println("tarifa: " + tarifa.get(0));
+							pis = new ArrayList(getWhere("ref_luz", "instalacao", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "pis"));
+							confins = new ArrayList(getWhere("ref_luz", "instalacao", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "confins"));
+							icms = new ArrayList(getWhere("ref_luz", "instalacao", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "icms"));
+							digitador = new ArrayList(getWhere("ref_luz", "instalacao", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "digitador"));
+							cidade = new ArrayList(getCidade(String.valueOf(combobox_cliente.getSelectedIndex()), "cidade"));
+							Lrgi.setText("RGI: " + rgi);
+							Lcidade.setText("Cidade: " + String.valueOf(cidade.get(0)));
+							Lconsumo.setText("Consumo: " + String.valueOf(consumo.get(0)));
+							Lvenc.setText("Vencimento: " + String.valueOf(vencimento.get(0)));
+							Ltotal.setText("Total: " + String.valueOf(total.get(0)));
+							Ldigitador.setText("Digitador: " + String.valueOf(digitador.get(0)));
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}	
+				}
 			}
 		});
-		btnNewButton.setFont(new Font("Times New Roman", Font.BOLD, 22));
-		btnNewButton.setBounds(88, 380, 130, 50);
-		Panel_cliente.add(btnNewButton);
+		Bver.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		Bver.setBounds(77, 379, 140, 50);
+		Panel_cliente.add(Bver);
 		
-		JButton btnGerarPdf = new JButton("Gerar PDF");
-		btnGerarPdf.setFont(new Font("Times New Roman", Font.BOLD, 20));
-		btnGerarPdf.setBounds(370, 380, 130, 50);
-		Panel_cliente.add(btnGerarPdf);
+		JButton Bcsv = new JButton("Gerar CSV");
+		Bcsv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (conta.equals("agua")) {
+					try {
+						PrintWriter file = new PrintWriter("conta_" + conta + ".csv");
+						StringBuilder sb = new StringBuilder();
+						sb.append("Cliente");sb.append(",");sb.append("RGI");sb.append(",");sb.append("Mes");sb.append(",");sb.append("Vencimento");sb.append(",");sb.append("Consumo");sb.append(",");
+						sb.append("Total");sb.append(",");sb.append("Digitador");
+						sb.append("\n");
+						sb.append(String.valueOf(combobox_cliente.getSelectedItem()));sb.append(",");sb.append(rgi);sb.append(",");sb.append(String.valueOf(combobox_mes.getSelectedItem()));sb.append(",");sb.append(vencimento.get(0));
+						sb.append(",");sb.append(String.valueOf(consumo.get(0)));sb.append(",");sb.append(String.valueOf(total.get(0)));sb.append(",");sb.append(String.valueOf(digitador.get(0)));sb.append("\n");
+						System.out.println(file);
+						file.write(sb.toString());
+						file.close();
+						
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				else if (conta.equals("luz")) {
+					try {
+						PrintWriter file = new PrintWriter("conta" + conta + ".csv");
+						StringBuilder sb = new StringBuilder();
+						sb.append("Cliente");sb.append(",");sb.append("Instação");sb.append(",");sb.append("Mes");sb.append(",");sb.append("Vencimento");sb.append(",");sb.append("Consumo");sb.append(",");sb.append("Tarifa");
+						sb.append(",");sb.append("PIS");sb.append(",");sb.append("CONFINS");sb.append(",");sb.append("ICMS");sb.append(",");sb.append("Total");sb.append(",");sb.append("Digitador");
+						sb.append("\n");
+						sb.append(String.valueOf(combobox_cliente.getSelectedItem()));sb.append(",");sb.append(rgi);sb.append(",");sb.append(String.valueOf(combobox_mes.getSelectedItem()));sb.append(",");sb.append(vencimento.get(0));
+						sb.append(",");sb.append(String.valueOf(consumo.get(0)));sb.append(",");sb.append(String.valueOf("" + tarifa.get(0)));sb.append(",");sb.append(String.valueOf(pis.get(0)));sb.append(",");
+						sb.append(String.valueOf(confins.get(0)));sb.append(",");sb.append(String.valueOf(icms.get(0)));sb.append(",");sb.append(String.valueOf(total.get(0)));sb.append(",");sb.append(String.valueOf(digitador.get(0)));
+						sb.append("\n");
+						System.out.println(file);
+						file.write(sb.toString());
+						file.close();
+						
+						
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				
+			}
+		});
+		Bcsv.setFont(new Font("Times New Roman", Font.BOLD, 22));
+		Bcsv.setBounds(343, 380, 140, 50);
+		Panel_cliente.add(Bcsv);
+
 		
-		JLabel lblNewLabel = new JLabel("*ultimas 6 contas do cliente selecionado");
-		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		lblNewLabel.setBounds(322, 430, 231, 22);
-		Panel_cliente.add(lblNewLabel);
 		
 
 	}
@@ -233,6 +372,50 @@ public class TelaRelatorio extends JFrame {
 			}
 		
 			System.out.println("Get finalizado");
+			System.out.println(array);
+			return array;
+		}
+		catch (Exception e) {
+			System.out.println("erro no get " + e);
+		}
+		return null;
+	}
+	
+	public static ArrayList getWhere(String tabela, String coluna1, String palavra1, String coluna2, String palavra2, String valor) throws Exception{
+		try {
+			Connection con = FabricaConexao.getConexao();
+			PreparedStatement  pegar = con.prepareStatement("SELECT * FROM " + tabela + " WHERE (" + coluna1 + " = '" + palavra1 +"') AND "
+					+ "(" + coluna2 +" = '" + palavra2 + "')" );
+			ResultSet resultado = pegar.executeQuery();
+		
+			ArrayList array = new ArrayList();
+			while (resultado.next()) {
+				array.add(resultado.getString(valor));
+			}
+		
+			System.out.println("Get finalizado");
+			System.out.println(array);
+			return array;
+		}
+		catch (Exception e) {
+			System.out.println("erro no get " + e);
+		}
+		return null;
+	}
+	
+	public static ArrayList getCidade(String palavra, String valor) throws Exception{
+		try {
+			Connection con = FabricaConexao.getConexao();
+			PreparedStatement  pegar = con.prepareStatement("SELECT * FROM local WHERE ( id_cli = '" + palavra +"')");
+			ResultSet resultado = pegar.executeQuery();
+		
+			ArrayList array = new ArrayList();
+			while (resultado.next()) {
+				array.add(resultado.getString(valor));
+			}
+		
+			System.out.println("Get finalizado");
+			System.out.println(array);
 			return array;
 		}
 		catch (Exception e) {
