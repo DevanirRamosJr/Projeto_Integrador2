@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package source;
 
 import java.awt.event.ActionEvent;
@@ -187,13 +182,13 @@ public class TelaLuz extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("InstalaÃ§Ã£o");
+        jLabel1.setText("Instala��o");
 
         jLabel2.setText("Cliente");
 
         jLabel3.setText("Vencimento");
 
-        jLabel4.setText("Conta do MÃªs");
+        jLabel4.setText("Conta do M�s (por extenso)");
 
         jLabel5.setText("Consumo KWH");
 
@@ -278,57 +273,60 @@ public class TelaLuz extends javax.swing.JFrame {
         	layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(layout.createSequentialGroup()
         			.addContainerGap()
-        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
         				.addGroup(layout.createSequentialGroup()
-        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        						.addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(jLabel9, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
         						.addGroup(layout.createSequentialGroup()
-        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        								.addComponent(btnAtualizar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        								.addComponent(salvarButton, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        								.addComponent(lblNewLabel_1))
+        							.addGap(18)
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        								.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
         								.addGroup(layout.createSequentialGroup()
         									.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-        										.addComponent(btnAtualizar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        										.addComponent(salvarButton, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-        										.addComponent(lblNewLabel_1))
-        									.addGap(18)
-        									.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
         										.addComponent(lblNewLabel)
-        										.addComponent(arquivoButton, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-        										.addComponent(btnExcluir, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        								.addComponent(jLabel11))
-        							.addGap(18)
-        							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        								.addComponent(jLabel12)
-        								.addComponent(procurarButton, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE))))
+        										.addComponent(arquivoButton, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+        									.addGap(18)
+        									.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        										.addComponent(jLabel12)
+        										.addComponent(procurarButton, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)))))
+        						.addComponent(jLabel11))
         					.addGap(18)
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        						.addComponent(jLabel8, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(jLabel10, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
         						.addComponent(limparButton, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
         						.addComponent(jLabel13)))
         				.addGroup(layout.createSequentialGroup()
-        					.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
-        						.addComponent(pisField, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-        						.addComponent(vencimentoField_1)
-        						.addComponent(instalacaoField_1)
-        						.addComponent(jLabel1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(jLabel3, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(jLabel5, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(consumoField))
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+        							.addComponent(pisField, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+        							.addComponent(vencimentoField_1)
+        							.addComponent(instalacaoField_1)
+        							.addComponent(jLabel1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(jLabel3, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(jLabel5, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(consumoField))
+        						.addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
         					.addGap(18)
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jLabel8, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
         						.addComponent(cofinsField, 300, 300, 300)
         						.addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
         						.addComponent(tarifaField, 300, 300, 300)
-        						.addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
         						.addComponent(contaMesField, 300, 300, 300)
         						.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(nomeClienteField, 300, 300, 300)))
+        						.addComponent(nomeClienteField, 300, 300, 300)
+        						.addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)))
         				.addGroup(layout.createSequentialGroup()
-        					.addComponent(icmsField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(icmsField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jLabel9, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
         					.addGap(18)
-        					.addComponent(totalPagarField, 300, 300, 300)))
-        			.addContainerGap(92, Short.MAX_VALUE))
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jLabel10, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(totalPagarField, 300, 300, 300))))
+        			.addContainerGap())
         );
         layout.setVerticalGroup(
         	layout.createParallelGroup(Alignment.LEADING)
@@ -358,7 +356,7 @@ public class TelaLuz extends javax.swing.JFrame {
         				.addComponent(consumoField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
         				.addComponent(tarifaField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
         			.addGap(18)
-        			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
         				.addComponent(jLabel8, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
         			.addPreferredGap(ComponentPlacement.RELATED)
@@ -366,9 +364,9 @@ public class TelaLuz extends javax.swing.JFrame {
         				.addComponent(pisField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
         				.addComponent(cofinsField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
         			.addGap(18)
-        			.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-        				.addComponent(jLabel10, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-        				.addComponent(jLabel9, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel9)
+        				.addComponent(jLabel10, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(icmsField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
@@ -384,14 +382,14 @@ public class TelaLuz extends javax.swing.JFrame {
         				.addComponent(arquivoButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
         				.addComponent(procurarButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
         				.addComponent(limparButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
-        			.addPreferredGap(ComponentPlacement.UNRELATED)
+        			.addGap(18)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(lblNewLabel_1)
         				.addComponent(lblNewLabel))
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(btnAtualizar, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(btnAtualizar, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
         			.addGap(32))
         );
         getContentPane().setLayout(layout);
@@ -498,6 +496,7 @@ public class TelaLuz extends javax.swing.JFrame {
         
         try {
 			post(instalacaoField_1.getText(), nomeClienteField.getText(), vencimentoField_1.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
+			//post - o nome do digitar se pega assim: TelaLogin.getDigitador();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -533,7 +532,7 @@ public class TelaLuz extends javax.swing.JFrame {
 		try {
 			Connection conexao = FabricaConexao.getConexao();
 			
-			String sql = "INSERT INTO conta_luz VALUES (?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO conta_luz VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement posted = conexao.prepareStatement(sql);
 			posted.setString(1, instalacao);
@@ -546,6 +545,7 @@ public class TelaLuz extends javax.swing.JFrame {
 			posted.setString(8, cofins);
 			posted.setString(9, icms);
 			posted.setString(10, totalPagar);
+			//post - o nome do digitar se pega assim: TelaLogin.getDigitador();
 			posted.executeUpdate();
 		}
 		catch (Exception e) {
