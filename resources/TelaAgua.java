@@ -81,36 +81,81 @@ public class TelaAgua extends javax.swing.JFrame {
     
     limparButton.getActionMap().put(key3, clearAction);
     
+    
+    
+   // Atalho botao Atualizar
+    
+	    Action updateAction = new AbstractAction("update") {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            
+	        	try {
+					update();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}   
+	        }
+	    };
+	
+	String key4 = "update";
+	
+	btnAtualizar.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK), key4);
+	
+	btnAtualizar.getActionMap().put(key4, updateAction);
+	
+	
+	// Atalho botao Excluir
+	
+	    Action deleteAction = new AbstractAction("delete") {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	            
+	        	try {
+	        		delete();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}   
+	        }
+	    };
+	
+	String key5 = "delete";
+	
+	btnExcluir.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_DOWN_MASK), key5);
+	
+	btnExcluir.getActionMap().put(key5, deleteAction);
+    
     }
     
     
     public void save() {
-        ContaAgua cliente = new ContaAgua(rgiField.getText(), clienteField.getText(), contaField.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField.getText());
+        ContaAgua cliente = new ContaAgua(rgiField_1.getText(), clienteField.getText(), contaField_1.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField_1.getText());
         
         try {
-			post(rgiField.getText(), clienteField.getText(), contaField.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField.getText());
+			post(rgiField_1.getText(), clienteField.getText(), contaField_1.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField_1.getText());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
         if(checarCampos(cliente)==0) {
-            if(!clientes.containsKey(rgiField.getText())) {
-                this.clientes.put(rgiField.getText(), cliente);
+            if(!clientes.containsKey(rgiField_1.getText())) {
+                this.clientes.put(rgiField_1.getText(), cliente);
                 this.historico.add(cliente);            
             } else {
-                clientes.get(rgiField.getText()).setNome(clienteField.getText());
-                clientes.get(rgiField.getText()).setConta(contaField.getText());
-                clientes.get(rgiField.getText()).setMes(mesField.getText());
-                clientes.get(rgiField.getText()).setConsumo(consumoField.getText());
-                clientes.get(rgiField.getText()).setTotal(totalField.getText());
-                clientes.get(rgiField.getText()).setVencimento(vencimentoField.getText());
+                clientes.get(rgiField_1.getText()).setNome(clienteField.getText());
+                clientes.get(rgiField_1.getText()).setConta(contaField_1.getText());
+                clientes.get(rgiField_1.getText()).setMes(mesField.getText());
+                clientes.get(rgiField_1.getText()).setConsumo(consumoField.getText());
+                clientes.get(rgiField_1.getText()).setTotal(totalField.getText());
+                clientes.get(rgiField_1.getText()).setVencimento(vencimentoField_1.getText());
             }
             
             limparDados();
         }
         
-        rgiField.requestFocus();
+        rgiField_1.requestFocus();
     }
     
     public static void post(String rgi, String nome, String conta, String mes, String consumo, String total, String vencimento) throws Exception {
@@ -164,7 +209,7 @@ public class TelaAgua extends javax.swing.JFrame {
         rgiField = new javax.swing.JTextField();
         try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("########/##");
-			rgiField= new javax.swing.JFormattedTextField(format_textField3);
+			rgiField_1= new javax.swing.JFormattedTextField(format_textField3);
 			} 
 		catch (Exception e){}
         jLabel2 = new javax.swing.JLabel();
@@ -174,7 +219,7 @@ public class TelaAgua extends javax.swing.JFrame {
         contaField = new javax.swing.JTextField();
         try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("#############");
-			contaField= new javax.swing.JFormattedTextField(format_textField3);
+			contaField_1= new javax.swing.JFormattedTextField(format_textField3);
 			} 
 		catch (Exception e){}
         jLabel5 = new javax.swing.JLabel();
@@ -183,7 +228,7 @@ public class TelaAgua extends javax.swing.JFrame {
         vencimentoField = new javax.swing.JTextField();
         try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
-			vencimentoField= new javax.swing.JFormattedTextField(format_textField3);
+			vencimentoField_1= new javax.swing.JFormattedTextField(format_textField3);
 			} 
 		catch (Exception e){}
         jLabel7 = new javax.swing.JLabel();
@@ -247,7 +292,7 @@ public class TelaAgua extends javax.swing.JFrame {
 
         jLabel10.setText("ctrl + f");
         
-        JButton btnAtualizar = new JButton("Atualizar");
+        btnAtualizar = new JButton("Atualizar");
         btnAtualizar.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		try {
@@ -270,6 +315,10 @@ public class TelaAgua extends javax.swing.JFrame {
 				}
         	}
         });
+        
+        lblNewLabel = new JLabel("ctrl + g");
+        
+        lblNewLabel_1 = new JLabel("ctrl + z");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -279,7 +328,7 @@ public class TelaAgua extends javax.swing.JFrame {
         			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
         				.addGroup(layout.createSequentialGroup()
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        						.addComponent(contaField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(contaField_1, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
         						.addComponent(jLabel6))
         					.addPreferredGap(ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
@@ -293,7 +342,7 @@ public class TelaAgua extends javax.swing.JFrame {
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
         						.addGroup(layout.createSequentialGroup()
         							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        								.addComponent(rgiField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(rgiField_1, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
         								.addComponent(jLabel3, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
         								.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
         							.addPreferredGap(ComponentPlacement.UNRELATED)
@@ -302,24 +351,32 @@ public class TelaAgua extends javax.swing.JFrame {
         								.addComponent(clienteField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
         								.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)))
         						.addComponent(jLabel7)
-        						.addComponent(vencimentoField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(vencimentoField_1, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
         						.addGroup(layout.createSequentialGroup()
-        							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-        								.addComponent(salvarButton, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-        								.addComponent(jLabel8)
-        								.addComponent(btnAtualizar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        							.addGap(18)
-        							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
-        								.addComponent(btnExcluir, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        								.addComponent(arquivoButton, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
-        							.addGap(18)
         							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        								.addComponent(procurarButton, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
-        								.addComponent(jLabel9))
-        							.addGap(18)
+        								.addGroup(layout.createSequentialGroup()
+        									.addComponent(lblNewLabel_1)
+        									.addPreferredGap(ComponentPlacement.RELATED))
+        								.addGroup(layout.createSequentialGroup()
+        									.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+        										.addComponent(btnAtualizar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        										.addComponent(salvarButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        										.addComponent(jLabel8, Alignment.LEADING))
+        									.addGap(18)))
         							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        								.addComponent(limparButton, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
-        								.addComponent(jLabel10))))
+        								.addGroup(layout.createSequentialGroup()
+        									.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        										.addComponent(btnExcluir, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        										.addComponent(arquivoButton, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+        									.addGap(18)
+        									.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        										.addComponent(procurarButton, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+        										.addComponent(jLabel9))
+        									.addGap(18)
+        									.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        										.addComponent(limparButton, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+        										.addComponent(jLabel10)))
+        								.addComponent(lblNewLabel))))
         					.addGap(0, 0, Short.MAX_VALUE)))
         			.addContainerGap())
         );
@@ -332,7 +389,7 @@ public class TelaAgua extends javax.swing.JFrame {
         				.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(rgiField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(rgiField_1, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
         				.addComponent(clienteField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
         			.addGap(18)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
@@ -340,7 +397,7 @@ public class TelaAgua extends javax.swing.JFrame {
         				.addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
         			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(contaField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(contaField_1, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
         				.addComponent(mesField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
         			.addGap(18)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
@@ -353,7 +410,7 @@ public class TelaAgua extends javax.swing.JFrame {
         			.addGap(18)
         			.addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
-        			.addComponent(vencimentoField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(vencimentoField_1, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
         			.addGap(48)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(jLabel8)
@@ -365,11 +422,15 @@ public class TelaAgua extends javax.swing.JFrame {
         				.addComponent(arquivoButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
         				.addComponent(procurarButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
         				.addComponent(limparButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
-        			.addGap(18)
+        			.addPreferredGap(ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblNewLabel_1)
+        				.addComponent(lblNewLabel))
+        			.addPreferredGap(ComponentPlacement.RELATED)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(btnAtualizar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
         				.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-        			.addContainerGap(53, Short.MAX_VALUE))
+        			.addGap(53))
         );
         getContentPane().setLayout(layout);
 
@@ -397,8 +458,8 @@ public class TelaAgua extends javax.swing.JFrame {
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
 
     	
-		if (rgiField.getText().equals("        /  ")) {
-			rgiField.requestFocus();
+		if (rgiField_1.getText().equals("        /  ")) {
+			rgiField_1.requestFocus();
 			JOptionPane.showMessageDialog(null, "O campo RGI é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
@@ -407,8 +468,8 @@ public class TelaAgua extends javax.swing.JFrame {
 			JOptionPane.showMessageDialog(null, "O campo CLIENTE é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		if (contaField.getText().equals("             ")) {
-			contaField.requestFocus();
+		if (contaField_1.getText().equals("             ")) {
+			contaField_1.requestFocus();
 			JOptionPane.showMessageDialog(null, "O campo NUMERO DA CONTA é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
@@ -427,8 +488,8 @@ public class TelaAgua extends javax.swing.JFrame {
 			JOptionPane.showMessageDialog(null, "O campo TOTAL A PAGAR é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		if (vencimentoField.getText().equals("  /  /    ")) {
-			vencimentoField.requestFocus();
+		if (vencimentoField_1.getText().equals("  /  /    ")) {
+			vencimentoField_1.requestFocus();
 			JOptionPane.showMessageDialog(null, "O campo VENCIMENTO é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
@@ -436,31 +497,31 @@ public class TelaAgua extends javax.swing.JFrame {
 
     	
         // TODO add your handling code here:
-        ContaAgua cliente = new ContaAgua(rgiField.getText(), clienteField.getText(), contaField.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField.getText());
+        ContaAgua cliente = new ContaAgua(rgiField_1.getText(), clienteField.getText(), contaField_1.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField_1.getText());
         
         try {
-			post(rgiField.getText(), clienteField.getText(), contaField.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField.getText());
+			post(rgiField_1.getText(), clienteField.getText(), contaField_1.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField_1.getText());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
         if(checarCampos(cliente)==0) {
-            if(!clientes.containsKey(rgiField.getText())) {
-            this.clientes.put(rgiField.getText(), cliente);
+            if(!clientes.containsKey(rgiField_1.getText())) {
+            this.clientes.put(rgiField_1.getText(), cliente);
             this.historico.add(cliente);            
             } else {
-                clientes.get(rgiField.getText()).setNome(clienteField.getText());
-                clientes.get(rgiField.getText()).setConta(contaField.getText());
-                clientes.get(rgiField.getText()).setMes(mesField.getText());
-                clientes.get(rgiField.getText()).setConsumo(consumoField.getText());
-                clientes.get(rgiField.getText()).setTotal(totalField.getText());
-                clientes.get(rgiField.getText()).setVencimento(vencimentoField.getText());
+                clientes.get(rgiField_1.getText()).setNome(clienteField.getText());
+                clientes.get(rgiField_1.getText()).setConta(contaField_1.getText());
+                clientes.get(rgiField_1.getText()).setMes(mesField.getText());
+                clientes.get(rgiField_1.getText()).setConsumo(consumoField.getText());
+                clientes.get(rgiField_1.getText()).setTotal(totalField.getText());
+                clientes.get(rgiField_1.getText()).setVencimento(vencimentoField_1.getText());
             }
             limparDados();
         }
         
-        rgiField.requestFocus();
+        rgiField_1.requestFocus();
         
         
        
@@ -470,7 +531,7 @@ public class TelaAgua extends javax.swing.JFrame {
     private void limparButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparButtonActionPerformed
         // TODO add your handling code here:
         limparDados();
-        rgiField.requestFocus();
+        rgiField_1.requestFocus();
     }//GEN-LAST:event_limparButtonActionPerformed
     
     
@@ -500,13 +561,13 @@ public class TelaAgua extends javax.swing.JFrame {
     }
     
     public void limparDados() {
-        rgiField.setText("");
+        rgiField_1.setText("");
         clienteField.setText("");
-        contaField.setText("");
+        contaField_1.setText("");
         mesField.setText("");
         consumoField.setText("");
         totalField.setText("");
-        vencimentoField.setText("");
+        vencimentoField_1.setText("");
     }
     
     
@@ -570,7 +631,7 @@ public class TelaAgua extends javax.swing.JFrame {
 	    	Connection conexao = FabricaConexao.getConexao();
 	    	
 	    	// Atribuindo oque foi digitado no textField a variavel x
-	    	String x = rgiField.getText();
+	    	String x = rgiField_1.getText();
 	    	
 	    	// Pesquisando no BD oque foi digitado no textField
 			String sql = "SELECT * FROM conta_agua WHERE rgi='"+ x + "'";
@@ -583,13 +644,13 @@ public class TelaAgua extends javax.swing.JFrame {
 			resultado.next();
 			
 			// Setando o retorno do BD nos textField
-			rgiField.setText(resultado.getString("rgi"));
+			rgiField_1.setText(resultado.getString("rgi"));
 			clienteField.setText(resultado.getString("nome"));
-			contaField.setText(resultado.getString("conta"));
+			contaField_1.setText(resultado.getString("conta"));
 			mesField.setText(resultado.getString("mes"));
 			consumoField.setText(resultado.getString("consumo"));
 			totalField.setText(resultado.getString("total"));
-			vencimentoField.setText(resultado.getString("vencimento"));
+			vencimentoField_1.setText(resultado.getString("vencimento"));
 
 			
 			conexao.close();
@@ -601,7 +662,7 @@ public class TelaAgua extends javax.swing.JFrame {
 	    	Connection conexao = FabricaConexao.getConexao();
 	    	
 	    	// Atribuindo oque foi digitado no textField a variavel x
-	    	String x = rgiField.getText();
+	    	String x = rgiField_1.getText();
 			
 	    	// String SQL
 			String updateSQL = "UPDATE conta_agua SET nome = ?, conta = ?, mes = ?, consumo = ?, total = ?, vencimento = ? WHERE rgi='"+ x + "'";
@@ -611,11 +672,11 @@ public class TelaAgua extends javax.swing.JFrame {
 			
 			// Setando no banco
 			stmt.setString(1, clienteField.getText());
-			stmt.setString(2, contaField.getText());
+			stmt.setString(2, contaField_1.getText());
 			stmt.setString(3, mesField.getText());
 			stmt.setString(4, consumoField.getText());
 			stmt.setString(5, totalField.getText());
-			stmt.setString(6, vencimentoField.getText());
+			stmt.setString(6, vencimentoField_1.getText());
 			stmt.executeUpdate();
 			
 			System.out.println("Dados atualizados");
@@ -631,7 +692,7 @@ public class TelaAgua extends javax.swing.JFrame {
 	    	Connection conexao = FabricaConexao.getConexao();
 	    	
 	    	// Atribuindo oque foi digitado no textField a variavel x
-	    	String x = rgiField.getText();
+	    	String x = rgiField_1.getText();
 	    	
 	    	String deleteSQL = "DELETE FROM conta_agua WHERE rgi='"+ x + "'";
 	    	
@@ -639,13 +700,13 @@ public class TelaAgua extends javax.swing.JFrame {
 	    	
 	    	stmt.execute();
 	    	
-	    	rgiField.setText("");
+	    	rgiField_1.setText("");
 	    	clienteField.setText("");
-	    	contaField.setText("");
+	    	contaField_1.setText("");
 	    	mesField.setText("");
 	    	consumoField.setText("");
 	    	totalField.setText("");
-	    	vencimentoField.setText("");
+	    	vencimentoField_1.setText("");
 	    	
 	    	System.out.println("Dados excluidos com sucesso");
 	
@@ -660,6 +721,7 @@ public class TelaAgua extends javax.swing.JFrame {
     private javax.swing.JTextField clienteField;
     private javax.swing.JTextField consumoField;
     private javax.swing.JTextField contaField;
+    private JTextField contaField_1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -674,11 +736,16 @@ public class TelaAgua extends javax.swing.JFrame {
     private javax.swing.JTextField mesField;
     private javax.swing.JButton procurarButton;
     private javax.swing.JTextField rgiField;
+    private JTextField rgiField_1;
     private javax.swing.JButton salvarButton;
     private javax.swing.JTextField totalField;
     private javax.swing.JTextField vencimentoField;
+    private JTextField vencimentoField_1;
     // End of variables declaration//GEN-END:variables
     private ArrayList<ContaAgua> historico;
     private HashMap<String, ContaAgua> clientes;
     private JButton btnExcluir;
+    private JButton btnAtualizar;
+    private JLabel lblNewLabel;
+    private JLabel lblNewLabel_1;
 }
