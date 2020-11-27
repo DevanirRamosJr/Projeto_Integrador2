@@ -399,7 +399,7 @@ public class TelaLuz extends javax.swing.JFrame {
 
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
     	
-    	if (instalacaoField_1.getText().equals("        ")) {
+    	if (instalacaoField_1.getText().equals("       ")) {
     		instalacaoField_1.requestFocus();
 			JOptionPane.showMessageDialog(null, "O campo INSTALAÇÃO é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
@@ -532,7 +532,7 @@ public class TelaLuz extends javax.swing.JFrame {
 		try {
 			Connection conexao = FabricaConexao.getConexao();
 			
-			String sql = "INSERT INTO conta_luz VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO ref_luz (instalacao, nome, vencimento, mes, consumo, tarifa, pis, confins, icms, total_pagar) VALUES (?,?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement posted = conexao.prepareStatement(sql);
 			posted.setString(1, instalacao);

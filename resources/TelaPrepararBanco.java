@@ -263,8 +263,8 @@ public class TelaPrepararBanco extends JFrame {
 		
 			ArrayList array = new ArrayList();
 			while (resultado.next()) {
-				array.add(resultado.getString(coluna));
-			}
+					array.add(resultado.getString(coluna));
+				}
 		
 			System.out.println("Get finalizado");
 			return array;

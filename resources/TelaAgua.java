@@ -162,7 +162,7 @@ public class TelaAgua extends javax.swing.JFrame {
 		try {
 			Connection conexao = FabricaConexao.getConexao();
 
-			String sql = "INSERT INTO conta_agua VALUES (?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO ref_agua (rgi, nome, conta, mes, consumo, total, vencimento) VALUES (?,?,?,?,?,?,?)";
 			PreparedStatement posted = conexao.prepareStatement(sql);
 			posted.setString(1, rgi);
 			posted.setString(2, nome);
