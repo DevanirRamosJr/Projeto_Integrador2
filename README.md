@@ -26,6 +26,7 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 - Objetivos da entrega:
    - Adicionar comandos para atualizar e deletar dados no Banco;
    - Adicionar máscaras nos campos;
+   - Ao salvar a conta o nome do digitador também é salvo;
    - Criação de um arquivo .csv como relatório de uma conta.
    
    <img src="img/user_story_40.png" ><img src="img/user_story_41.png" >
