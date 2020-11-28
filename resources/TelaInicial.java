@@ -18,7 +18,7 @@ public class TelaInicial extends javax.swing.JFrame {
         setTitle("Menu");
         initComponents();
         
-        Action aguaAction = new AbstractAction("Ãƒï¿½gua") {
+        Action aguaAction = new AbstractAction("Água") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
@@ -28,7 +28,7 @@ public class TelaInicial extends javax.swing.JFrame {
         }
     };
     
-    String key = "Ãƒï¿½gua";
+    String key = "Água";
     
     aguaButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK), key);
     
@@ -77,7 +77,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        aguaButton.setText("Ãƒï¿½gua");
+        aguaButton.setText("Água");
         aguaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aguaButtonActionPerformed(evt);
@@ -96,7 +96,7 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        relatorioButton.setText("RelatÃƒÂ³rio");
+        relatorioButton.setText("Relatório");
         relatorioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 new TelaRelatorio().setVisible(true);

@@ -142,7 +142,7 @@ public class TelaLuz extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         instalacaoField = new javax.swing.JTextField();
 		try {
-				javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("########");
+				javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("#######");
 				instalacaoField_1= new javax.swing.JFormattedTextField(format_textField3);
 			} 
 		catch (Exception e){}
@@ -591,7 +591,7 @@ public class TelaLuz extends javax.swing.JFrame {
         try {
             SalvarDados();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "NÃ£o foi possÃ­vel criar arquivo");
+            JOptionPane.showMessageDialog(null, "N�o foi poss�vel criar arquivo");
         }
     }//GEN-LAST:event_arquivoButtonActionPerformed
     
@@ -675,7 +675,7 @@ public class TelaLuz extends javax.swing.JFrame {
                 myWriter.write(this.clientes.get(key).toString());
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "NÃ£o foi possÃ­vel criar arquivo");
+            JOptionPane.showMessageDialog(null, "N�o foi poss�vel criar arquivo");
         }
     }
     

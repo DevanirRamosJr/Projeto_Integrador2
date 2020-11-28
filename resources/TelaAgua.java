@@ -575,7 +575,7 @@ public class TelaAgua extends javax.swing.JFrame {
         try {
             SalvarDados();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "NÃ£o foi possÃ­vel criar arquivo");
+            JOptionPane.showMessageDialog(null, "N�o foi poss�vel criar arquivo");
         }
     }   
     
@@ -587,7 +587,7 @@ public class TelaAgua extends javax.swing.JFrame {
                 myWriter.write(this.clientes.get(key).toString());
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "NÃ£o foi possÃ­vel criar arquivo");
+            JOptionPane.showMessageDialog(null, "N�o foi poss�vel criar arquivo");
         }
     }
     /**
