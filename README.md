@@ -10,7 +10,9 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 
 ## Funções do sistema:
 
-- Em desenvolvimento
+- Cadastro de Contas de Água e Luz em um Banco de Dados;
+- Identificação do digitador através de um login;
+- Criar um arquivo .csv com os dados das contas cadastradas;
 
 ### Integrantes da Equipe
 
@@ -19,15 +21,18 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 - Johnny - Desenvolvedor
 - Jonatas Ferreira - P.O.
 
-## Sprint 3:
+## Sprint 4:
 
 - Objetivos da entrega:
-   - Salva em um Banco de Dados
-   - Requer login para executar o programa
+   - Adicionar comandos para atualizar e deletar dados no Banco;
+   - Adicionar máscaras nos campos;
+   - Criação de um arquivo .csv como relatório de uma conta.
+   
+   <img src="img/user_stroy_40.png" >  <img src="img/user_stroy_41.png" >
    
    
 - Instalação:
-   - Download Programa executável.zip
+   - Download "programa_executável.zip"
    - Descompactar os arquivos em sua pasta desejada
    - Leia o guia de usuário para instruções de uso(readme.txt)
    - Linux:
@@ -35,20 +40,16 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
       
             ```
             $ java -jar PrepararBanco.jar
-            $ java -jar "" "Cadastro de Contas.jar"
+            $ java -jar CadastroDeContas.jar
             ```
    - Windows:
       - Procure por "command prompt" inicie como admin com o botão direito, vá até a pasta em que você extraiu os arquivos e digite:
       
             ```
             $ java -jar PrepararBanco.jar
-            $ java -jar "" "Cadastro de Contas.jar"
+            $ java -jar CadastroDeContas.jar
             ```
 - Guia de usuário incluído no arquivo zip.
-
-- Para a próxima Sprint (Sprint 4):
-
-         Gerar relatório
 
 - Vídeo (sprint 3):
 
