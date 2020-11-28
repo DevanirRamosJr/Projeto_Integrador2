@@ -62,6 +62,8 @@ public class TelaRelatorio extends JFrame {
 	private ArrayList pis;
 	private ArrayList icms;
 	private ArrayList confins;
+	private ArrayList rua;
+	private ArrayList cep;
 	private String rgi;
 
 	private String conta;
@@ -249,9 +251,11 @@ public class TelaRelatorio extends JFrame {
 						try {
 							consumo = new ArrayList(getWhere("ref_agua", "rgi", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "consumo"));
 							vencimento = new ArrayList(getWhere("ref_agua", "rgi", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "vencimento"));
-							total = new ArrayList(getWhere("ref_agua", "rgi", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "total_pagar"));
+							total = new ArrayList(getWhere("ref_agua", "rgi", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "total"));
 							digitador = new ArrayList(getWhere("ref_agua", "rgi", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "digitador"));
 							cidade = new ArrayList(getCidade(String.valueOf(combobox_cliente.getSelectedIndex()), "cidade"));
+							rua = new ArrayList(getCidade(String.valueOf(combobox_cliente.getSelectedIndex()), "endereco"));
+							cep = new ArrayList(getCidade(String.valueOf(combobox_cliente.getSelectedIndex()), "cep"));
 							Lrgi.setText("RGI: " + rgi);
 							Lcidade.setText("Cidade: " + String.valueOf(cidade.get(0)));
 							Lconsumo.setText("Consumo: " + String.valueOf(consumo.get(0)));
@@ -281,6 +285,8 @@ public class TelaRelatorio extends JFrame {
 							icms = new ArrayList(getWhere("ref_luz", "instalacao", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "icms"));
 							digitador = new ArrayList(getWhere("ref_luz", "instalacao", rgi, "mes", String.valueOf(combobox_mes.getSelectedItem()), "digitador"));
 							cidade = new ArrayList(getCidade(String.valueOf(combobox_cliente.getSelectedIndex()), "cidade"));
+							rua = new ArrayList(getCidade(String.valueOf(combobox_cliente.getSelectedIndex()), "endereco"));
+							cep = new ArrayList(getCidade(String.valueOf(combobox_cliente.getSelectedIndex()), "cep"));
 							Lrgi.setText("RGI: " + rgi);
 							Lcidade.setText("Cidade: " + String.valueOf(cidade.get(0)));
 							Lconsumo.setText("Consumo: " + String.valueOf(consumo.get(0)));
@@ -306,10 +312,10 @@ public class TelaRelatorio extends JFrame {
 					try {
 						PrintWriter file = new PrintWriter("conta_" + conta + "_" + combobox_cliente.getSelectedItem() + "_" + combobox_mes.getSelectedItem() + ".csv");
 						StringBuilder sb = new StringBuilder();
-						sb.append("Cliente");sb.append(",");sb.append("Cidade");sb.append(",");sb.append("RGI");sb.append(",");sb.append("Mes");sb.append(",");sb.append("Vencimento");sb.append(",");sb.append("Consumo");sb.append(",");
+						sb.append("Cliente");sb.append(",");sb.append("Cidade");sb.append(",");sb.append("Endereço");sb.append(",");sb.append("CEP");sb.append(",");sb.append("RGI");sb.append(",");sb.append("Mes");sb.append(",");sb.append("Vencimento");sb.append(",");sb.append("Consumo");sb.append(",");
 						sb.append("Total");sb.append(",");sb.append("Digitador");
 						sb.append("\n");
-						sb.append(String.valueOf(combobox_cliente.getSelectedItem()));sb.append(",");sb.append(String.valueOf(cidade.get(0)));sb.append(",");sb.append(rgi);sb.append(",");sb.append(String.valueOf(combobox_mes.getSelectedItem()));sb.append(",");sb.append(vencimento.get(0));
+						sb.append(String.valueOf(combobox_cliente.getSelectedItem()));sb.append(",");sb.append(String.valueOf(cidade.get(0)));sb.append(",");sb.append(String.valueOf(rua.get(0)));sb.append(",");sb.append(String.valueOf(cep.get(0)));sb.append(",");sb.append(rgi);sb.append(",");sb.append(String.valueOf(combobox_mes.getSelectedItem()));sb.append(",");sb.append(vencimento.get(0));
 						sb.append(",");sb.append(String.valueOf(consumo.get(0)));sb.append(",");sb.append(String.valueOf(total.get(0)));sb.append(",");sb.append(String.valueOf(digitador.get(0)));sb.append("\n");
 						System.out.println(file);
 						file.write(sb.toString());
@@ -325,10 +331,10 @@ public class TelaRelatorio extends JFrame {
 					try {
 						PrintWriter file = new PrintWriter("conta_" + conta + "_" + combobox_cliente.getSelectedItem() + "_" + combobox_mes.getSelectedItem() + ".csv");
 						StringBuilder sb = new StringBuilder();
-						sb.append("Cliente");sb.append(",");sb.append("Cidade");sb.append(",");sb.append("Instação");sb.append(",");sb.append("Mes");sb.append(",");sb.append("Vencimento");sb.append(",");sb.append("Consumo");sb.append(",");sb.append("Tarifa");
+						sb.append("Cliente");sb.append(",");sb.append("Cidade");sb.append(",");sb.append("Endereço");sb.append(",");sb.append("CEP");sb.append(",");sb.append("Instação");sb.append(",");sb.append("Mes");sb.append(",");sb.append("Vencimento");sb.append(",");sb.append("Consumo");sb.append(",");sb.append("Tarifa");
 						sb.append(",");sb.append("PIS");sb.append(",");sb.append("CONFINS");sb.append(",");sb.append("ICMS");sb.append(",");sb.append("Total");sb.append(",");sb.append("Digitador");
 						sb.append("\n");
-						sb.append(String.valueOf(combobox_cliente.getSelectedItem()));sb.append(",");sb.append(String.valueOf(cidade.get(0)));sb.append(",");sb.append(rgi);sb.append(",");sb.append(String.valueOf(combobox_mes.getSelectedItem()));sb.append(",");sb.append(vencimento.get(0));
+						sb.append(String.valueOf(combobox_cliente.getSelectedItem()));sb.append(",");sb.append(String.valueOf(cidade.get(0)));sb.append(",");sb.append(String.valueOf(rua.get(0)));sb.append(",");sb.append(String.valueOf(cep.get(0)));sb.append(",");sb.append(rgi);sb.append(",");sb.append(String.valueOf(combobox_mes.getSelectedItem()));sb.append(",");sb.append(vencimento.get(0));
 						sb.append(",");sb.append(String.valueOf(consumo.get(0)));sb.append(",");sb.append(String.valueOf("" + tarifa.get(0)));sb.append(",");sb.append(String.valueOf(pis.get(0)));sb.append(",");
 						sb.append(String.valueOf(confins.get(0)));sb.append(",");sb.append(String.valueOf(icms.get(0)));sb.append(",");sb.append(String.valueOf(total.get(0)));sb.append(",");sb.append(String.valueOf(digitador.get(0)));
 						sb.append("\n");
