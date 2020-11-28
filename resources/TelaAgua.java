@@ -14,6 +14,8 @@ import java.sql.Statement;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -22,15 +24,32 @@ import java.awt.event.ActionListener;
  */
 
 public class TelaAgua extends javax.swing.JFrame {
+	private ArrayList rgi;
+	private ArrayList id_conta;
+	private ArrayList id_loc;
+	private ArrayList id_cli;
+	private ArrayList nome;
 
     /**
      * Creates new form TelaAgua
      */
     public TelaAgua() {
+    	setTitle("Cadastrar Conta √Ågua");
+    	setResizable(false);
         initComponents();
         this.historico = new ArrayList<>();
         this.clientes = new HashMap<>();
         
+        try {
+			rgi = new ArrayList(getD("conta_agua", "rgi"));
+			id_conta = new ArrayList(getD("conta_agua", "id_local"));
+			id_loc = new ArrayList(getD("local", "id_loc"));
+			id_cli = new ArrayList(getD("local", "id_cli"));
+			nome = new ArrayList(getD("cliente", "nome_cli"));
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
         
         Action saveAction = new AbstractAction("save") {
             @Override
@@ -133,7 +152,7 @@ public class TelaAgua extends javax.swing.JFrame {
         ContaAgua cliente = new ContaAgua(rgiField_1.getText(), clienteField.getText(), contaField_1.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField_1.getText());
         
         try {
-			post(rgiField_1.getText(), clienteField.getText(), contaField_1.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField_1.getText());
+			post(rgiField_1.getText(), clienteField.getText(), contaField_1.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField_1.getText(), TelaLogin.getDigitador());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -158,11 +177,11 @@ public class TelaAgua extends javax.swing.JFrame {
         rgiField_1.requestFocus();
     }
     
-    public static void post(String rgi, String nome, String conta, String mes, String consumo, String total, String vencimento) throws Exception {
+    public static void post(String rgi, String nome, String conta, String mes, String consumo, String total, String vencimento, String digitador) throws Exception {
 		try {
 			Connection conexao = FabricaConexao.getConexao();
 
-			String sql = "INSERT INTO ref_agua (rgi, nome, conta, mes, consumo, total, vencimento) VALUES (?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO ref_agua (rgi, nome, conta, mes, consumo, total, vencimento, digitador) VALUES (?,?,?,?,?,?,?,?)";
 			PreparedStatement posted = conexao.prepareStatement(sql);
 			posted.setString(1, rgi);
 			posted.setString(2, nome);
@@ -171,6 +190,7 @@ public class TelaAgua extends javax.swing.JFrame {
 			posted.setString(5, consumo);
 			posted.setString(6, total); 
 			posted.setString(7, vencimento);
+			posted.setString(8, digitador);
 			posted.executeUpdate();
 		}
 		catch (Exception e) {
@@ -205,11 +225,34 @@ public class TelaAgua extends javax.swing.JFrame {
     private void initComponents() {
 
         clienteField = new javax.swing.JTextField();
+        clienteField.setEnabled(false);
+        clienteField.setEditable(false);
         jLabel1 = new javax.swing.JLabel();
         rgiField = new javax.swing.JTextField();
         try {
 			javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("########/##");
 			rgiField_1= new javax.swing.JFormattedTextField(format_textField3);
+			rgiField_1.addFocusListener(new FocusAdapter() {
+				@Override
+				public void focusLost(FocusEvent arg0) {
+					if (rgiField_1.getText().equals("        /  ")) {
+					}
+					else if (rgi.indexOf(rgiField_1.getText()) >= 0) {
+						String id_l = (String) id_conta.get(rgi.indexOf(rgiField_1.getText()));
+						String id_c = (String) id_cli.get((id_loc.indexOf(id_l)));
+						clienteField.setText(String.valueOf(nome.get(Integer.parseInt(id_c))));
+					}
+					else {
+						int input = JOptionPane.showConfirmDialog(null, "Oh n√£o!\n"
+								+ "Parece que o cliente com essa\n"
+								+ "Instala√ß√£o ainda n√£o existe.", "Erro - Cliente", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+						if (input == 0) {
+							rgiField_1.setText("");
+							rgiField_1.requestFocus();
+						}
+					}
+				}
+			});
 			} 
 		catch (Exception e){}
         jLabel2 = new javax.swing.JLabel();
@@ -224,6 +267,13 @@ public class TelaAgua extends javax.swing.JFrame {
 		catch (Exception e){}
         jLabel5 = new javax.swing.JLabel();
         mesField = new javax.swing.JTextField();
+        mesField.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusLost(FocusEvent e) {
+        		String s = mesField.getText();
+        		mesField.setText(s.substring(0, 1).toUpperCase() + s.substring(1));
+        	}
+        });
         jLabel6 = new javax.swing.JLabel();
         vencimentoField = new javax.swing.JTextField();
         try {
@@ -250,7 +300,7 @@ public class TelaAgua extends javax.swing.JFrame {
 
         jLabel3.setText("No da Conta");
 
-        jLabel4.setText("Mes de Referencia");
+        jLabel4.setText("Mes de Referencia (por extenso)");
 
         jLabel5.setText("Total a Pagar");
 
@@ -347,22 +397,19 @@ public class TelaAgua extends javax.swing.JFrame {
         								.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE))
         							.addPreferredGap(ComponentPlacement.UNRELATED)
         							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        								.addComponent(jLabel4)
         								.addComponent(clienteField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
-        								.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)))
+        								.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+        								.addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 184, GroupLayout.PREFERRED_SIZE)))
         						.addComponent(jLabel7)
         						.addComponent(vencimentoField_1, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
         						.addGroup(layout.createSequentialGroup()
         							.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        								.addGroup(layout.createSequentialGroup()
-        									.addComponent(lblNewLabel_1)
-        									.addPreferredGap(ComponentPlacement.RELATED))
-        								.addGroup(layout.createSequentialGroup()
-        									.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
-        										.addComponent(btnAtualizar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        										.addComponent(salvarButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-        										.addComponent(jLabel8, Alignment.LEADING))
-        									.addGap(18)))
+        								.addComponent(lblNewLabel_1)
+        								.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+        									.addComponent(btnAtualizar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        									.addComponent(salvarButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        									.addComponent(jLabel8, Alignment.LEADING)))
+        							.addGap(18)
         							.addGroup(layout.createParallelGroup(Alignment.LEADING)
         								.addGroup(layout.createSequentialGroup()
         									.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
@@ -460,37 +507,37 @@ public class TelaAgua extends javax.swing.JFrame {
     	
 		if (rgiField_1.getText().equals("        /  ")) {
 			rgiField_1.requestFocus();
-			JOptionPane.showMessageDialog(null, "O campo RGI È obrigatÛrio", "Aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "O campo RGI √© obrigat√≥rio", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		if (clienteField.getText().equals("")) {
 			clienteField.requestFocus();
-			JOptionPane.showMessageDialog(null, "O campo CLIENTE È obrigatÛrio", "Aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "O campo CLIENTE √© obrigat√≥rio", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		if (contaField_1.getText().equals("             ")) {
 			contaField_1.requestFocus();
-			JOptionPane.showMessageDialog(null, "O campo NUMERO DA CONTA È obrigatÛrio", "Aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "O campo NUMERO DA CONTA √© obrigat√≥rio", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		if (mesField.getText().equals("")) {
 			mesField.requestFocus();
-			JOptionPane.showMessageDialog(null, "O campo MES DE REFERENCIA È obrigatÛrio", "Aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "O campo MES DE REFERENCIA √© obrigat√≥rio", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		if (consumoField.getText().equals("")) {
 			consumoField.requestFocus();
-			JOptionPane.showMessageDialog(null, "O campo CONSUMO M3 È obrigatÛrio", "Aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "O campo CONSUMO M3 √© obrigat√≥rio", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		if (totalField.getText().equals("")) {
 			totalField.requestFocus();
-			JOptionPane.showMessageDialog(null, "O campo TOTAL A PAGAR È obrigatÛrio", "Aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "O campo TOTAL A PAGAR √© obrigat√≥rio", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		if (vencimentoField_1.getText().equals("  /  /    ")) {
 			vencimentoField_1.requestFocus();
-			JOptionPane.showMessageDialog(null, "O campo VENCIMENTO È obrigatÛrio", "Aviso", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(null, "O campo VENCIMENTO √© obrigat√≥rio", "Aviso", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
     	
@@ -500,7 +547,7 @@ public class TelaAgua extends javax.swing.JFrame {
         ContaAgua cliente = new ContaAgua(rgiField_1.getText(), clienteField.getText(), contaField_1.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField_1.getText());
         
         try {
-			post(rgiField_1.getText(), clienteField.getText(), contaField_1.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField_1.getText());
+			post(rgiField_1.getText(), clienteField.getText(), contaField_1.getText(), mesField.getText(), consumoField.getText(), totalField.getText(), vencimentoField_1.getText(), TelaLogin.getDigitador());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -575,7 +622,7 @@ public class TelaAgua extends javax.swing.JFrame {
         try {
             SalvarDados();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "N„o foi possÌvel criar arquivo");
+            JOptionPane.showMessageDialog(null, "N√£o foi poss√≠vel criar arquivo");
         }
     }   
     
@@ -587,7 +634,7 @@ public class TelaAgua extends javax.swing.JFrame {
                 myWriter.write(this.clientes.get(key).toString());
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "N„o foi possÌvel criar arquivo");
+            JOptionPane.showMessageDialog(null, "N√£o foi poss√≠vel criar arquivo");
         }
     }
     /**
@@ -713,6 +760,29 @@ public class TelaAgua extends javax.swing.JFrame {
 	    	
 	    	conexao.close(); 	
 	    }
+	
+	
+	
+	public static ArrayList getD(String tabela, String coluna) throws Exception{
+		try {
+			Connection con = FabricaConexao.getConexao();
+			PreparedStatement  pegar = con.prepareStatement("SELECT * FROM " + tabela);
+			ResultSet resultado = pegar.executeQuery();
+		
+			ArrayList array = new ArrayList();
+			while (resultado.next()) {
+				array.add(resultado.getString(coluna));
+			}
+		
+			System.out.println("Get finalizado");
+			System.out.println(array);
+			return array;
+		}
+		catch (Exception e) {
+			System.out.println("erro no get " + e);
+		}
+		return null;
+	}
     
     
 

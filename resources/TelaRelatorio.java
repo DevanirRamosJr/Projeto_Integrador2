@@ -304,12 +304,12 @@ public class TelaRelatorio extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if (conta.equals("agua")) {
 					try {
-						PrintWriter file = new PrintWriter("conta_" + conta + ".csv");
+						PrintWriter file = new PrintWriter("conta_" + conta + "_" + combobox_cliente.getSelectedItem() + "_" + combobox_mes.getSelectedItem() + ".csv");
 						StringBuilder sb = new StringBuilder();
-						sb.append("Cliente");sb.append(",");sb.append("RGI");sb.append(",");sb.append("Mes");sb.append(",");sb.append("Vencimento");sb.append(",");sb.append("Consumo");sb.append(",");
+						sb.append("Cliente");sb.append(",");sb.append("Cidade");sb.append(",");sb.append("RGI");sb.append(",");sb.append("Mes");sb.append(",");sb.append("Vencimento");sb.append(",");sb.append("Consumo");sb.append(",");
 						sb.append("Total");sb.append(",");sb.append("Digitador");
 						sb.append("\n");
-						sb.append(String.valueOf(combobox_cliente.getSelectedItem()));sb.append(",");sb.append(rgi);sb.append(",");sb.append(String.valueOf(combobox_mes.getSelectedItem()));sb.append(",");sb.append(vencimento.get(0));
+						sb.append(String.valueOf(combobox_cliente.getSelectedItem()));sb.append(",");sb.append(String.valueOf(cidade.get(0)));sb.append(",");sb.append(rgi);sb.append(",");sb.append(String.valueOf(combobox_mes.getSelectedItem()));sb.append(",");sb.append(vencimento.get(0));
 						sb.append(",");sb.append(String.valueOf(consumo.get(0)));sb.append(",");sb.append(String.valueOf(total.get(0)));sb.append(",");sb.append(String.valueOf(digitador.get(0)));sb.append("\n");
 						System.out.println(file);
 						file.write(sb.toString());
@@ -323,12 +323,12 @@ public class TelaRelatorio extends JFrame {
 				}
 				else if (conta.equals("luz")) {
 					try {
-						PrintWriter file = new PrintWriter("conta" + conta + ".csv");
+						PrintWriter file = new PrintWriter("conta_" + conta + "_" + combobox_cliente.getSelectedItem() + "_" + combobox_mes.getSelectedItem() + ".csv");
 						StringBuilder sb = new StringBuilder();
-						sb.append("Cliente");sb.append(",");sb.append("Instação");sb.append(",");sb.append("Mes");sb.append(",");sb.append("Vencimento");sb.append(",");sb.append("Consumo");sb.append(",");sb.append("Tarifa");
+						sb.append("Cliente");sb.append(",");sb.append("Cidade");sb.append(",");sb.append("Instação");sb.append(",");sb.append("Mes");sb.append(",");sb.append("Vencimento");sb.append(",");sb.append("Consumo");sb.append(",");sb.append("Tarifa");
 						sb.append(",");sb.append("PIS");sb.append(",");sb.append("CONFINS");sb.append(",");sb.append("ICMS");sb.append(",");sb.append("Total");sb.append(",");sb.append("Digitador");
 						sb.append("\n");
-						sb.append(String.valueOf(combobox_cliente.getSelectedItem()));sb.append(",");sb.append(rgi);sb.append(",");sb.append(String.valueOf(combobox_mes.getSelectedItem()));sb.append(",");sb.append(vencimento.get(0));
+						sb.append(String.valueOf(combobox_cliente.getSelectedItem()));sb.append(",");sb.append(String.valueOf(cidade.get(0)));sb.append(",");sb.append(rgi);sb.append(",");sb.append(String.valueOf(combobox_mes.getSelectedItem()));sb.append(",");sb.append(vencimento.get(0));
 						sb.append(",");sb.append(String.valueOf(consumo.get(0)));sb.append(",");sb.append(String.valueOf("" + tarifa.get(0)));sb.append(",");sb.append(String.valueOf(pis.get(0)));sb.append(",");
 						sb.append(String.valueOf(confins.get(0)));sb.append(",");sb.append(String.valueOf(icms.get(0)));sb.append(",");sb.append(String.valueOf(total.get(0)));sb.append(",");sb.append(String.valueOf(digitador.get(0)));
 						sb.append("\n");

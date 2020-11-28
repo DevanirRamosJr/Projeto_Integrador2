@@ -24,17 +24,40 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.Color;
 
 public class TelaLuz extends javax.swing.JFrame {
+	
+	private ArrayList instalacao;
+	private ArrayList id_conta;
+	private ArrayList id_loc;
+	private ArrayList id_cli;
+	private ArrayList nome;
 
     /**
      * Creates new form TelaLuz
      */
     public TelaLuz() {
+    	
+
+    	setTitle("Cadastrar Conta de Luz");
+    	setResizable(false);
         initComponents();
         this.clientes = new HashMap<>();
         this.historico = new ArrayList<>();
         
+        try {
+			instalacao = new ArrayList(getD("conta_luz", "instalacao"));
+			id_conta = new ArrayList(getD("conta_luz", "id_local"));
+			id_loc = new ArrayList(getD("local", "id_loc"));
+			id_cli = new ArrayList(getD("local", "id_cli"));
+			nome = new ArrayList(getD("cliente", "nome_cli"));
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
         
         Action saveAction = new AbstractAction("save") {
             @Override
@@ -144,10 +167,35 @@ public class TelaLuz extends javax.swing.JFrame {
 		try {
 				javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("#######");
 				instalacaoField_1= new javax.swing.JFormattedTextField(format_textField3);
+				instalacaoField_1.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						if (instalacaoField_1.getText().equals("       ")) {
+						}
+						else if (instalacao.indexOf(instalacaoField_1.getText()) >= 0) {
+							String id_l = (String) id_conta.get(instalacao.indexOf(instalacaoField_1.getText()));
+							String id_c = (String) id_cli.get((id_loc.indexOf(id_l)));
+							nomeClienteField.setText(String.valueOf(nome.get(Integer.parseInt(id_c))));
+						}
+						else {
+							int input = JOptionPane.showConfirmDialog(null, "Oh não!\n"
+									+ "Parece que o cliente com essa\n"
+									+ "Instalação ainda não existe.", "Erro - Cliente", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+							if (input == 0) {
+								instalacaoField_1.setText("");
+								instalacaoField_1.requestFocus();
+							}
+						}
+						
+					}
+				});
 			} 
 		catch (Exception e){}
         jLabel1 = new javax.swing.JLabel();
         nomeClienteField = new javax.swing.JTextField();
+        nomeClienteField.setEditable(false);
+        nomeClienteField.setEnabled(false);
+        nomeClienteField.setBackground(Color.WHITE);
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         vencimentoField = new javax.swing.JTextField();
@@ -158,6 +206,13 @@ public class TelaLuz extends javax.swing.JFrame {
 		catch (Exception e){}
         jLabel4 = new javax.swing.JLabel();
         contaMesField = new javax.swing.JTextField();
+        contaMesField.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusLost(FocusEvent e) {
+        		String s = contaMesField.getText();
+        		contaMesField.setText(s.substring(0, 1).toUpperCase() + s.substring(1));
+        	}
+        });
         jLabel5 = new javax.swing.JLabel();
         consumoField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -188,7 +243,7 @@ public class TelaLuz extends javax.swing.JFrame {
 
         jLabel3.setText("Vencimento");
 
-        jLabel4.setText("Conta do Mês (por extenso)");
+        jLabel4.setText("M\u00EAs de refer\u00EAncia (por extenso)");
 
         jLabel5.setText("Consumo KWH");
 
@@ -317,7 +372,7 @@ public class TelaLuz extends javax.swing.JFrame {
         						.addComponent(contaMesField, 300, 300, 300)
         						.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
         						.addComponent(nomeClienteField, 300, 300, 300)
-        						.addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)))
+        						.addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)))
         				.addGroup(layout.createSequentialGroup()
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
         						.addComponent(icmsField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
@@ -457,7 +512,7 @@ public class TelaLuz extends javax.swing.JFrame {
         //double x = checarTotal();
         
         try {
-			post(instalacaoField_1.getText(), nomeClienteField.getText(), vencimentoField_1.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
+			post(instalacaoField_1.getText(), nomeClienteField.getText(), vencimentoField_1.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText(), TelaLogin.getDigitador());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -495,8 +550,7 @@ public class TelaLuz extends javax.swing.JFrame {
         //double x = checarTotal();
         
         try {
-			post(instalacaoField_1.getText(), nomeClienteField.getText(), vencimentoField_1.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
-			//post - o nome do digitar se pega assim: TelaLogin.getDigitador();
+			post(instalacaoField_1.getText(), nomeClienteField.getText(), vencimentoField_1.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText(), TelaLogin.getDigitador());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -528,11 +582,11 @@ public class TelaLuz extends javax.swing.JFrame {
     }
     
     public static void post(String instalacao, String nomeCliente, String vencimento, String contaMes, String consumo, String tarifa, 
-    		String pis, String cofins, String icms, String totalPagar) throws Exception {
+    		String pis, String cofins, String icms, String totalPagar, String digitador) throws Exception {
 		try {
 			Connection conexao = FabricaConexao.getConexao();
 			
-			String sql = "INSERT INTO ref_luz (instalacao, nome, vencimento, mes, consumo, tarifa, pis, confins, icms, total_pagar) VALUES (?,?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO ref_luz (instalacao, nome, vencimento, mes, consumo, tarifa, pis, confins, icms, total_pagar, digitador) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement posted = conexao.prepareStatement(sql);
 			posted.setString(1, instalacao);
@@ -545,7 +599,7 @@ public class TelaLuz extends javax.swing.JFrame {
 			posted.setString(8, cofins);
 			posted.setString(9, icms);
 			posted.setString(10, totalPagar);
-			//post - o nome do digitar se pega assim: TelaLogin.getDigitador();
+			posted.setString(11, digitador);
 			posted.executeUpdate();
 		}
 		catch (Exception e) {
@@ -831,6 +885,29 @@ public class TelaLuz extends javax.swing.JFrame {
 	    	
 	    	conexao.close(); 	
 	    }
+	
+	
+	
+	public static ArrayList getD(String tabela, String coluna) throws Exception{
+		try {
+			Connection con = FabricaConexao.getConexao();
+			PreparedStatement  pegar = con.prepareStatement("SELECT * FROM " + tabela);
+			ResultSet resultado = pegar.executeQuery();
+		
+			ArrayList array = new ArrayList();
+			while (resultado.next()) {
+				array.add(resultado.getString(coluna));
+			}
+		
+			System.out.println("Get finalizado");
+			System.out.println(array);
+			return array;
+		}
+		catch (Exception e) {
+			System.out.println("erro no get " + e);
+		}
+		return null;
+	}
     
     
 

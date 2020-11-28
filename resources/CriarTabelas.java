@@ -105,12 +105,13 @@ public class CriarTabelas {
 		String sql = "CREATE TABLE IF NOT EXISTS ref_agua ("
 				+ "id_ref int PRIMARY KEY NOT NULL AUTO_INCREMENT,"
 				+ "rgi VARCHAR(15) NOT NULL,"
-				+ "nome VARCHAR(15),"
+				+ "nome VARCHAR(50),"
 				+ "conta VARCHAR(15) NOT NULL,"
 				+ "mes VARCHAR(15) NOT NULL,"
 				+ "consumo VARCHAR(10) NOT NULL,"
 				+ "total VARCHAR(15) NOT NULL,"
 				+ "vencimento VARCHAR(15) NOT NULL,"
+				+ "digitador VARCHAR(20) NOT NULL,"
 				+ "FOREIGN KEY (rgi) REFERENCES conta_agua(rgi)"
 				+ ")";
 		
@@ -118,13 +119,13 @@ public class CriarTabelas {
 		stmt.execute(sql);
 		System.out.println("Ref_agua criada com sucesso!!!");
 		
-		PreparedStatement posted = conexao.prepareStatement("INSERT IGNORE INTO ref_agua (rgi, conta, mes, consumo, total, vencimento) VALUES"
-				+ "('05101222/72', '1490051012221', 'Outubro', '19', '109.53', '02/10/2020'),"
-				+ "('05101222/72', '1492051012221', 'Dezembro', '18', '102.78', '06/12/2020'),"
-				+ "('10569542/51', '1490000832181', 'Setembro', '26', '180.78', '10/09/2020'),"
-				+ "('10569542/51', '149005092421', 'Outubro', '26', '185.09', '08/10/2020'),"
-				+ "('10569542/51', '149015139973', 'Novembro', '25', '178.17', '08/11/2020'),"
-				+ "('30269194/07', '1492101014478', 'Dezembro', '21', '129.55', '04/12/2020')");
+		PreparedStatement posted = conexao.prepareStatement("INSERT IGNORE INTO ref_agua (rgi, conta, mes, consumo, total, vencimento, digitador) VALUES"
+				+ "('05101222/72', '1490051012221', 'Outubro', '19', '109.53', '02/10/2020', 'Devanir'),"
+				+ "('05101222/72', '1492051012221', 'Dezembro', '18', '102.78', '06/12/2020', 'Devanir'),"
+				+ "('10569542/51', '1490000832181', 'Setembro', '26', '180.78', '10/09/2020', 'Devanir'),"
+				+ "('10569542/51', '149005092421', 'Outubro', '26', '185.09', '08/10/2020', 'Jonatas'),"
+				+ "('10569542/51', '149015139973', 'Novembro', '25', '178.17', '08/11/2020', 'Jonatas'),"
+				+ "('30269194/07', '1492101014478', 'Dezembro', '21', '129.55', '04/12/2020', 'Tairik')");
 		posted.executeUpdate();
 		System.out.println("Ref_agua - dados criados com sucesso!!!");
 	}
@@ -136,7 +137,7 @@ public class CriarTabelas {
 		String sql = "CREATE TABLE IF NOT EXISTS ref_luz ("
 				+ "id_luz int PRIMARY KEY NOT NULL AUTO_INCREMENT,"
 				+ "instalacao VARCHAR(15) NOT NULL,"
-				+ "nome VARCHAR(15),"
+				+ "nome VARCHAR(50),"
 				+ "vencimento CHAR(10) NOT NULL,"
 				+ "mes VARCHAR(9) NOT NULL,"
 				+ "consumo VARCHAR(15) NOT NULL,"
@@ -145,6 +146,7 @@ public class CriarTabelas {
 				+ "confins VARCHAR(15) NOT NULL,"
 				+ "icms VARCHAR(15) NOT NULL,"
 				+ "total_pagar VARCHAR(10) NOT NULL,"
+				+ "Digitador VARCHAR(20) NOT NULL,"
 				+ "FOREIGN KEY (instalacao) REFERENCES conta_luz(instalacao)"
 				+ ")engine=InnoDB";
 		
@@ -152,12 +154,12 @@ public class CriarTabelas {
 		stmt.execute(sql);
 		System.out.println("Ref_luz criada com sucesso!!!");
 		
-		PreparedStatement posted = conexao.prepareStatement("INSERT IGNORE INTO ref_luz (instalacao, vencimento, mes, consumo, tarifa, pis, confins, icms, total_pagar) VALUES"
-				+ "('8960446', '09/11/2020', 'Outubro', '258', '0.266885710', '1.30', '6.02', '47.77', '191.07'),"
-				+ "('8960446', '07/10/2020', 'Setembro', '266', '0.26449000', '0.63', '2.90', '47.79', '194.50'),"
-				+ "('8960446', '09/09/2020', 'Agosto', '231', '0.26449000', '0.36', '1.65', '41.16', '164.62'),"
-				+ "('9548625', '10/10/2020', 'Setembro', '255', '0.26522000', '0.60', '3.95', '44.53', '172.11'),"
-				+ "('5894562', '08/11/2020', 'Outubro', '262', '0.26414000', '0.90', '4.60', '46.22', '180.34')");
+		PreparedStatement posted = conexao.prepareStatement("INSERT IGNORE INTO ref_luz (instalacao, vencimento, mes, consumo, tarifa, pis, confins, icms, total_pagar, digitador) VALUES"
+				+ "('8960446', '09/11/2020', 'Outubro', '258', '0.266885710', '1.30', '6.02', '47.77', '191.07', 'Devanir'),"
+				+ "('8960446', '07/10/2020', 'Setembro', '266', '0.26449000', '0.63', '2.90', '47.79', '194.50', 'Devanir'),"
+				+ "('8960446', '09/09/2020', 'Agosto', '231', '0.26449000', '0.36', '1.65', '41.16', '164.62', 'Devanir'),"
+				+ "('9548625', '10/10/2020', 'Setembro', '255', '0.26522000', '0.60', '3.95', '44.53', '172.11', 'Jonatas'),"
+				+ "('5894562', '08/11/2020', 'Outubro', '262', '0.26414000', '0.90', '4.60', '46.22', '180.34', 'Tairik')");
 		posted.executeUpdate();
 		System.out.println("Ref_luz - dados criados com sucesso!!!");
 	}
