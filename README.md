@@ -28,7 +28,7 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
    - Adicionar máscaras nos campos;
    - Criação de um arquivo .csv como relatório de uma conta.
    
-   <img src="img/user_stroy_40.png" >  <img src="img/user_stroy_41.png" >
+   <img src="img/user_story_40.png" ><img src="img/user_story_41.png" >
    
    
 - Instalação:
