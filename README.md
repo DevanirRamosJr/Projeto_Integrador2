@@ -52,8 +52,8 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
             ```
 - Guia de usuário incluído no arquivo zip.
 
-- Vídeo (sprint 3):
+- Vídeo (sprint 4):
 
-https://www.loom.com/share/3062732acfce4c4e943165e162f6695f
+https://www.loom.com/share/5ea7a83cee2b445c94bc6d99a8cf1be9
 
 
