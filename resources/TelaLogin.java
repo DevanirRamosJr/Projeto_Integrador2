@@ -27,7 +27,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class TelaLogin extends JFrame {
-
+	
+	private static String digitador;
 	private JPanel Panel_main;
 
 	/**
@@ -115,15 +116,16 @@ public class TelaLogin extends JFrame {
 				}
 				System.out.println(nomes.indexOf(Tnome.getText()));
 				if (nomes.indexOf(Tnome.getText()) == -1) {
-					Laviso.setText("*senha e/ou nome errado");
+					Laviso.setText("*senha e/ou nome errado(s)");
 					
 				}
 				else if (String.valueOf(Password.getPassword()).equals(senhas.get(nomes.indexOf(Tnome.getText())))) {
+					digitador = Tnome.getText();
 					new TelaInicial().setVisible(true);
 					dispose();
 				}
 				else {
-					Laviso.setText("*senha e/ou nome errado");
+					Laviso.setText("*senha e/ou nome errado(s)");
 				}
 					
 			}
@@ -149,6 +151,7 @@ public class TelaLogin extends JFrame {
 						
 					}
 					else if (String.valueOf(Password.getPassword()).equals(senhas.get(nomes.indexOf(Tnome.getText())))) {
+						digitador = Tnome.getText();
 						new TelaInicial().setVisible(true);
 						dispose();
 					}
@@ -182,6 +185,14 @@ public class TelaLogin extends JFrame {
 			System.out.println("erro no get " + e);
 		}
 		return null;
+	}
+
+	public static String getDigitador() {
+		return digitador;
+	}
+
+	public void setDigitador(String digitador) {
+		this.digitador = digitador;
 	}
 	
 }

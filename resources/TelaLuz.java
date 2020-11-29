@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package source;
 
 import java.awt.event.ActionEvent;
@@ -11,6 +6,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,21 +17,47 @@ import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.JButton;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.event.ActionListener;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.Color;
 
-/**
- *
- * @author jeferson
- */
 public class TelaLuz extends javax.swing.JFrame {
+	
+	private ArrayList instalacao;
+	private ArrayList id_conta;
+	private ArrayList id_loc;
+	private ArrayList id_cli;
+	private ArrayList nome;
 
     /**
      * Creates new form TelaLuz
      */
     public TelaLuz() {
+    	
+
+    	setTitle("Cadastrar Conta de Luz");
+    	setResizable(false);
         initComponents();
         this.clientes = new HashMap<>();
         this.historico = new ArrayList<>();
         
+        try {
+			instalacao = new ArrayList(getD("conta_luz", "instalacao"));
+			id_conta = new ArrayList(getD("conta_luz", "id_local"));
+			id_loc = new ArrayList(getD("local", "id_loc"));
+			id_cli = new ArrayList(getD("local", "id_cli"));
+			nome = new ArrayList(getD("cliente", "nome_cli"));
+		} catch (Exception e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
         
         Action saveAction = new AbstractAction("save") {
             @Override
@@ -54,7 +78,12 @@ public class TelaLuz extends javax.swing.JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
-                search();   
+                try {
+					search();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}   
             }
         };
     
@@ -78,6 +107,50 @@ public class TelaLuz extends javax.swing.JFrame {
     procurarButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK), key3);
     
     procurarButton.getActionMap().put(key3, clearAction);
+    
+    
+    // Atalho botao Atualizar
+    
+		    Action updateAction = new AbstractAction("update") {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        
+		        try {
+					update();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}   
+		    }
+		};
+		
+		String key4 = "update";
+		
+		btnAtualizar.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_Z, KeyEvent.CTRL_DOWN_MASK), key4);
+		
+		btnAtualizar.getActionMap().put(key4, updateAction);
+	
+	
+    // Atalho botao Excluir
+    
+		    Action deleteAction = new AbstractAction("delete") {
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		        
+		        try {
+					delete();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}   
+		    }
+		};
+		
+		String key5 = "delete";
+		
+		btnExcluir.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_G, KeyEvent.CTRL_DOWN_MASK), key5);
+		
+		btnExcluir.getActionMap().put(key5, deleteAction);
     }
 
     /**
@@ -91,13 +164,55 @@ public class TelaLuz extends javax.swing.JFrame {
 
         jButton2 = new javax.swing.JButton();
         instalacaoField = new javax.swing.JTextField();
+		try {
+				javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("#######");
+				instalacaoField_1= new javax.swing.JFormattedTextField(format_textField3);
+				instalacaoField_1.addFocusListener(new FocusAdapter() {
+					@Override
+					public void focusLost(FocusEvent arg0) {
+						if (instalacaoField_1.getText().equals("       ")) {
+						}
+						else if (instalacao.indexOf(instalacaoField_1.getText()) >= 0) {
+							String id_l = (String) id_conta.get(instalacao.indexOf(instalacaoField_1.getText()));
+							String id_c = (String) id_cli.get((id_loc.indexOf(id_l)));
+							nomeClienteField.setText(String.valueOf(nome.get(Integer.parseInt(id_c))));
+						}
+						else {
+							int input = JOptionPane.showConfirmDialog(null, "Oh não!\n"
+									+ "Parece que o cliente com essa\n"
+									+ "Instalação ainda não existe.", "Erro - Cliente", JOptionPane.DEFAULT_OPTION, JOptionPane.ERROR_MESSAGE);
+							if (input == 0) {
+								instalacaoField_1.setText("");
+								instalacaoField_1.requestFocus();
+							}
+						}
+						
+					}
+				});
+			} 
+		catch (Exception e){}
         jLabel1 = new javax.swing.JLabel();
         nomeClienteField = new javax.swing.JTextField();
+        nomeClienteField.setEditable(false);
+        nomeClienteField.setEnabled(false);
+        nomeClienteField.setBackground(Color.WHITE);
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         vencimentoField = new javax.swing.JTextField();
+		try {
+				javax.swing.text.MaskFormatter format_textField3 = new javax.swing.text.MaskFormatter("##/##/####");
+				vencimentoField_1= new javax.swing.JFormattedTextField(format_textField3);
+			} 
+		catch (Exception e){}
         jLabel4 = new javax.swing.JLabel();
         contaMesField = new javax.swing.JTextField();
+        contaMesField.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusLost(FocusEvent e) {
+        		String s = contaMesField.getText();
+        		contaMesField.setText(s.substring(0, 1).toUpperCase() + s.substring(1));
+        	}
+        });
         jLabel5 = new javax.swing.JLabel();
         consumoField = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
@@ -118,17 +233,17 @@ public class TelaLuz extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         arquivoButton = new javax.swing.JButton();
 
-        jButton2.setText("HistÃ³rico");
+        jButton2.setText("HistÃƒÂ³rico");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("InstalaÃ§Ã£o");
+        jLabel1.setText("Instalação");
 
         jLabel2.setText("Cliente");
 
         jLabel3.setText("Vencimento");
 
-        jLabel4.setText("Conta do MÃªs");
+        jLabel4.setText("M\u00EAs de refer\u00EAncia (por extenso)");
 
         jLabel5.setText("Consumo KWH");
 
@@ -175,128 +290,229 @@ public class TelaLuz extends javax.swing.JFrame {
                 arquivoButtonActionPerformed(evt);
             }
         });
+        
+        btnAtualizar = new JButton("Atualizar");
+        btnAtualizar.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		try {
+					update();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		
+        	}
+        });
+        
+        btnExcluir = new JButton("Excluir");
+        btnExcluir.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		try {
+					delete();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        		
+        	}
+        });
+        
+        lblNewLabel = new JLabel("ctrl + g");
+        
+        lblNewLabel_1 = new JLabel("ctrl + z");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(pisField, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                                .addComponent(vencimentoField)
-                                .addComponent(instalacaoField)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(consumoField))
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(icmsField, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(nomeClienteField)
-                            .addComponent(contaMesField)
-                            .addComponent(tarifaField)
-                            .addComponent(cofinsField)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 200, Short.MAX_VALUE))
-                            .addComponent(totalPagarField)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel11)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(salvarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(arquivoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel12))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel13))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addContainerGap()
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        						.addGroup(layout.createSequentialGroup()
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        								.addComponent(btnAtualizar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        								.addComponent(salvarButton, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+        								.addComponent(lblNewLabel_1))
+        							.addGap(18)
+        							.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        								.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+        								.addGroup(layout.createSequentialGroup()
+        									.addGroup(layout.createParallelGroup(Alignment.LEADING, false)
+        										.addComponent(lblNewLabel)
+        										.addComponent(arquivoButton, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
+        									.addGap(18)
+        									.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        										.addComponent(jLabel12)
+        										.addComponent(procurarButton, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)))))
+        						.addComponent(jLabel11))
+        					.addGap(18)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(limparButton, GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jLabel13)))
+        				.addGroup(layout.createSequentialGroup()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(layout.createParallelGroup(Alignment.TRAILING, false)
+        							.addComponent(pisField, GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+        							.addComponent(vencimentoField_1)
+        							.addComponent(instalacaoField_1)
+        							.addComponent(jLabel1, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(jLabel3, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(jLabel5, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(consumoField))
+        						.addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+        					.addGap(18)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jLabel8, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(cofinsField, 300, 300, 300)
+        						.addComponent(jLabel6, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(tarifaField, 300, 300, 300)
+        						.addComponent(contaMesField, 300, 300, 300)
+        						.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(nomeClienteField, 300, 300, 300)
+        						.addComponent(jLabel4, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)))
+        				.addGroup(layout.createSequentialGroup()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(icmsField, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jLabel9, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
+        					.addGap(18)
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jLabel10, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(totalPagarField, 300, 300, 300))))
+        			.addContainerGap())
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(nomeClienteField, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(instalacaoField))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(vencimentoField, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(contaMesField))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(consumoField, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(tarifaField))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(pisField, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-                    .addComponent(cofinsField))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-                    .addComponent(jLabel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(icmsField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(totalPagarField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(salvarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(procurarButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(limparButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(arquivoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(27, 27, 27))
+        	layout.createParallelGroup(Alignment.LEADING)
+        		.addGroup(layout.createSequentialGroup()
+        			.addGap(21)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel1, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jLabel2))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(instalacaoField_1, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(nomeClienteField, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
+        			.addGap(18)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel3)
+        				.addComponent(jLabel4, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(vencimentoField_1, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(contaMesField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+        			.addGap(18)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel5)
+        				.addComponent(jLabel6, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(consumoField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(tarifaField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+        			.addGap(18)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel7, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(jLabel8, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(pisField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(cofinsField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+        			.addGap(18)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel9)
+        				.addComponent(jLabel10, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(icmsField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(totalPagarField, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+        			.addPreferredGap(ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLabel11)
+        				.addComponent(jLabel12)
+        				.addComponent(jLabel13))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(salvarButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(arquivoButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(procurarButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(limparButton, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+        			.addGap(18)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(lblNewLabel_1)
+        				.addComponent(lblNewLabel))
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(btnExcluir, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(btnAtualizar, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE))
+        			.addGap(32))
         );
+        getContentPane().setLayout(layout);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void salvarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salvarButtonActionPerformed
+    	
+    	if (instalacaoField_1.getText().equals("       ")) {
+    		instalacaoField_1.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo INSTALAÇÃO é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (nomeClienteField.getText().equals("")) {
+    		nomeClienteField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo CLIENTE é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (vencimentoField_1.getText().equals("  /  /    ")) {
+    		vencimentoField_1.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo VENCIMENTO é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (contaMesField.getText().equals("")) {
+    		contaMesField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo CONTA MES é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (consumoField.getText().equals("")) {
+    		consumoField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo CONSUMO KWH é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (tarifaField.getText().equals("")) {
+    		tarifaField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo TARIFA é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (pisField.getText().equals("")) {
+    		pisField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo PIS é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (cofinsField.getText().equals("")) {
+    		cofinsField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo CONFINS é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (icmsField.getText().equals("")) {
+    		icmsField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo ICMS é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+    	if (totalPagarField.getText().equals("")) {
+    		totalPagarField.requestFocus();
+			JOptionPane.showMessageDialog(null, "O campo TOTAL A PAGAR é obrigatório", "Aviso", JOptionPane.WARNING_MESSAGE);
+			return;
+		}    	
+    	
+    	
         // TODO add your handling code here:
-        ContaLuz cliente = new ContaLuz(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
-        String instalacao = instalacaoField.getText();
-        double x = checarTotal();
+        ContaLuz cliente = new ContaLuz(instalacaoField_1.getText(), nomeClienteField.getText(), vencimentoField_1.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
+        String instalacao = instalacaoField_1.getText();
+        //double x = checarTotal();
         
         try {
-			post(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
+			post(instalacaoField_1.getText(), nomeClienteField.getText(), vencimentoField_1.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText(), TelaLogin.getDigitador());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -305,14 +521,14 @@ public class TelaLuz extends javax.swing.JFrame {
         if(checarDados(cliente)==0) {
             
             if(!clientes.containsKey(instalacao)) {
-                if(x != Double.valueOf(totalPagarField.getText())) {
-                    JOptionPane.showMessageDialog(null, "Total divergente");
-                }
+                //if(x != Double.valueOf(totalPagarField.getText())) {
+                //    JOptionPane.showMessageDialog(null, "Total divergente");
+                //}
                 this.clientes.put(instalacao, cliente);
                 this.historico.add(cliente);
             } else {
                 clientes.get(instalacao).setNomeCliente(nomeClienteField.getText());
-                clientes.get(instalacao).setVencimento(vencimentoField.getText());
+                clientes.get(instalacao).setVencimento(vencimentoField_1.getText());
                 clientes.get(instalacao).setContaMes(contaMesField.getText());
                 clientes.get(instalacao).setConsumo(consumoField.getText());
                 clientes.get(instalacao).setTarifa(tarifaField.getText());
@@ -324,17 +540,17 @@ public class TelaLuz extends javax.swing.JFrame {
                 limparDados();
         }
         
-        instalacaoField.requestFocus();
+        instalacaoField_1.requestFocus();
     }//GEN-LAST:event_salvarButtonActionPerformed
     
     
     public void save() {
-        ContaLuz cliente = new ContaLuz(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
-        String instalacao = instalacaoField.getText();
-        double x = checarTotal();
+        ContaLuz cliente = new ContaLuz(instalacaoField_1.getText(), nomeClienteField.getText(), vencimentoField_1.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
+        String instalacao = instalacaoField_1.getText();
+        //double x = checarTotal();
         
         try {
-			post(instalacaoField.getText(), nomeClienteField.getText(), vencimentoField.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText());
+			post(instalacaoField_1.getText(), nomeClienteField.getText(), vencimentoField_1.getText(), contaMesField.getText(), consumoField.getText(), tarifaField.getText(), pisField.getText(), cofinsField.getText(), icmsField.getText(), totalPagarField.getText(), TelaLogin.getDigitador());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -343,14 +559,14 @@ public class TelaLuz extends javax.swing.JFrame {
         if(checarDados(cliente)==0) {
             
             if(!clientes.containsKey(instalacao)) {
-                if(x != Double.valueOf(totalPagarField.getText())) {
-                    JOptionPane.showMessageDialog(null, "Total divergente");
-                }
+                //if(x != Double.valueOf(totalPagarField.getText())) {
+                //    JOptionPane.showMessageDialog(null, "Total divergente");
+                //}
                 this.clientes.put(instalacao, cliente);
                 this.historico.add(cliente);
             } else {
                 clientes.get(instalacao).setNomeCliente(nomeClienteField.getText());
-                clientes.get(instalacao).setVencimento(vencimentoField.getText());
+                clientes.get(instalacao).setVencimento(vencimentoField_1.getText());
                 clientes.get(instalacao).setContaMes(contaMesField.getText());
                 clientes.get(instalacao).setConsumo(consumoField.getText());
                 clientes.get(instalacao).setTarifa(tarifaField.getText());
@@ -362,13 +578,15 @@ public class TelaLuz extends javax.swing.JFrame {
                 limparDados();
         }
         
-        instalacaoField.requestFocus();       
+        instalacaoField_1.requestFocus();       
     }
     
     public static void post(String instalacao, String nomeCliente, String vencimento, String contaMes, String consumo, String tarifa, 
-    		String pis, String cofins, String icms, String totalPagar) throws Exception {
+    		String pis, String cofins, String icms, String totalPagar, String digitador) throws Exception {
 		try {
 			Connection conexao = FabricaConexao.getConexao();
+			
+			String sql = "INSERT INTO ref_luz (instalacao, nome, vencimento, mes, consumo, tarifa, pis, confins, icms, total_pagar, digitador) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
 			PreparedStatement posted = conexao.prepareStatement(sql);
 			posted.setString(1, instalacao);
@@ -381,6 +599,7 @@ public class TelaLuz extends javax.swing.JFrame {
 			posted.setString(8, cofins);
 			posted.setString(9, icms);
 			posted.setString(10, totalPagar);
+			posted.setString(11, digitador);
 			posted.executeUpdate();
 		}
 		catch (Exception e) {
@@ -393,75 +612,83 @@ public class TelaLuz extends javax.swing.JFrame {
     
     private void procurarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_procurarButtonActionPerformed
 
-        String instalacao = instalacaoField.getText();
+    	
+    	try {
+			search();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+        //String instalacao = instalacaoField.getText();
         
-        if(clientes.containsKey(instalacao)) {
-            nomeClienteField.setText(clientes.get(instalacao).getNomeCliente());
-            vencimentoField.setText(clientes.get(instalacao).getVencimento());
-            contaMesField.setText(clientes.get(instalacao).getContaMes());
-            consumoField.setText(clientes.get(instalacao).getConsumo());
-            tarifaField.setText(clientes.get(instalacao).getTarifa());
-            pisField.setText(clientes.get(instalacao).getTarifa());
-            cofinsField.setText(clientes.get(instalacao).getCofins());
-            icmsField.setText(clientes.get(instalacao).getIcms());
-            totalPagarField.setText(clientes.get(instalacao).getTotalPagar());
-        }
+        //if(clientes.containsKey(instalacao)) {
+        //    nomeClienteField.setText(clientes.get(instalacao).getNomeCliente());
+        //    vencimentoField.setText(clientes.get(instalacao).getVencimento());
+        //    contaMesField.setText(clientes.get(instalacao).getContaMes());
+        //    consumoField.setText(clientes.get(instalacao).getConsumo());
+        //    tarifaField.setText(clientes.get(instalacao).getTarifa());
+        //    pisField.setText(clientes.get(instalacao).getTarifa());
+        //   cofinsField.setText(clientes.get(instalacao).getCofins());
+        //    icmsField.setText(clientes.get(instalacao).getIcms());
+        //    totalPagarField.setText(clientes.get(instalacao).getTotalPagar());
+        //}
     }//GEN-LAST:event_procurarButtonActionPerformed
 
     private void limparButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limparButtonActionPerformed
         // TODO add your handling code here:
         limparDados();
-        instalacaoField.requestFocus();
+        instalacaoField_1.requestFocus();
     }//GEN-LAST:event_limparButtonActionPerformed
 
     private void arquivoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_arquivoButtonActionPerformed
         try {
             SalvarDados();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(null, "NÃ£o foi possÃ­vel criar arquivo");
+            JOptionPane.showMessageDialog(null, "Não foi possível criar arquivo");
         }
     }//GEN-LAST:event_arquivoButtonActionPerformed
     
     
     public void clear() {
         limparDados();
-        instalacaoField.requestFocus();
+        instalacaoField_1.requestFocus();
     }
     
     
-    public void search() {
-
-        String instalacao = instalacaoField.getText();
-        
-        if(clientes.containsKey(instalacao)) {
-            nomeClienteField.setText(clientes.get(instalacao).getNomeCliente());
-            vencimentoField.setText(clientes.get(instalacao).getVencimento());
-            contaMesField.setText(clientes.get(instalacao).getContaMes());
-            consumoField.setText(clientes.get(instalacao).getConsumo());
-            tarifaField.setText(clientes.get(instalacao).getTarifa());
-            pisField.setText(clientes.get(instalacao).getPis());
-            cofinsField.setText(clientes.get(instalacao).getCofins());
-            icmsField.setText(clientes.get(instalacao).getIcms());
-            totalPagarField.setText(clientes.get(instalacao).getTotalPagar());
-        }        
-    }
+    //public void search() {
+    //
+    //    String instalacao = instalacaoField.getText();
+    //    
+    //    if(clientes.containsKey(instalacao)) {
+    //        nomeClienteField.setText(clientes.get(instalacao).getNomeCliente());
+    //        vencimentoField.setText(clientes.get(instalacao).getVencimento());
+    //        contaMesField.setText(clientes.get(instalacao).getContaMes());
+    //       consumoField.setText(clientes.get(instalacao).getConsumo());
+    //        tarifaField.setText(clientes.get(instalacao).getTarifa());
+    //        pisField.setText(clientes.get(instalacao).getPis());
+    //        cofinsField.setText(clientes.get(instalacao).getCofins());
+    //        icmsField.setText(clientes.get(instalacao).getIcms());
+    //        totalPagarField.setText(clientes.get(instalacao).getTotalPagar());
+    //    }        
+    //}
     
-    public double checarTotal() {
-        
-        double tarifa = Double.valueOf(tarifaField.getText());
-        double pis = Double.valueOf(pisField.getText());
-        double cofins = Double.valueOf(cofinsField.getText());
-        double icms = Double.valueOf(icmsField.getText());
-        double total = Double.valueOf(totalPagarField.getText());
-        double quantidade = Double.valueOf(consumoField.getText());
-        
-        double totalReal = (total*pis/100) + (total*cofins/100) + (total*icms/100) + (quantidade*tarifa);
-        
-        totalReal = Math.round(totalReal*100) / 100.0;
-        
-        return totalReal;
-        
-    }
+    //public double checarTotal() {
+    //    
+    //    double tarifa = Double.valueOf(tarifaField.getText());
+    //    double pis = Double.valueOf(pisField.getText());
+    //    double cofins = Double.valueOf(cofinsField.getText());
+    //    double icms = Double.valueOf(icmsField.getText());
+    //    double total = Double.valueOf(totalPagarField.getText());
+    //    double quantidade = Double.valueOf(consumoField.getText());
+    //    
+    //    double totalReal = (total*pis/100) + (total*cofins/100) + (total*icms/100) + (quantidade*tarifa);
+    //    
+    //   totalReal = Math.round(totalReal*100) / 100.0;
+    //    
+    //    return totalReal;
+    //    
+    //}
     
     
     public int checarDados(ContaLuz dados) {
@@ -502,16 +729,16 @@ public class TelaLuz extends javax.swing.JFrame {
                 myWriter.write(this.clientes.get(key).toString());
             }
         } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "NÃ£o foi possÃ­vel criar arquivo");
+            JOptionPane.showMessageDialog(null, "Não foi possível criar arquivo");
         }
     }
     
     
     public void limparDados(){
         
-        instalacaoField.setText("");
+        instalacaoField_1.setText("");
         nomeClienteField.setText("");
-        vencimentoField.setText("");
+        vencimentoField_1.setText("");
         contaMesField.setText("");
         consumoField.setText("");
         tarifaField.setText("");
@@ -554,6 +781,135 @@ public class TelaLuz extends javax.swing.JFrame {
             }
         });
     }
+    
+    
+    
+	public void search() throws SQLException {
+			
+	    	Connection conexao = FabricaConexao.getConexao();
+	    	
+	    	// Atribuindo oque foi digitado no textField a variavel x
+	    	String x = instalacaoField_1.getText();
+	    	
+	    	// Pesquisando no BD oque foi digitado no textField
+			String sql = "SELECT * FROM conta_luz WHERE instalacao='"+ x + "'";
+			
+			Statement stmt = conexao.createStatement();
+			
+			// ESTA SENDO ATRIBUIDO A VARIAVEL RESULTADO O RETORNO DA VARIAVEL SQL COM A CONSULTA DO BANCO
+			ResultSet resultado = stmt.executeQuery(sql);
+			
+			resultado.next();
+			
+			// Setando o retorno do BD nos textField
+			instalacaoField_1.setText(resultado.getString("instalacao"));
+			nomeClienteField.setText(resultado.getString("nomeCliente"));
+			vencimentoField_1.setText(resultado.getString("vencimento"));
+			contaMesField.setText(resultado.getString("contaMes"));
+			consumoField.setText(resultado.getString("consumo"));
+			tarifaField.setText(resultado.getString("tarifa"));
+			pisField.setText(resultado.getString("pis"));
+			cofinsField.setText(resultado.getString("confins"));
+			icmsField.setText(resultado.getString("icms"));
+			totalPagarField.setText(resultado.getString("totalPagar"));
+			
+			System.out.println("Dados buscados com sucesso");
+			
+			conexao.close();
+		}
+    
+    
+	public void update() throws SQLException {
+	    	
+	    	Connection conexao = FabricaConexao.getConexao();
+	    	
+	    	// Atribuindo oque foi digitado no textField a variavel x
+	    	String x = instalacaoField_1.getText();
+			
+	    	// String SQL
+			String updateSQL = "UPDATE conta_luz SET nomeCliente = ?, vencimento = ?, contaMes = ?, consumo = ?, tarifa = ?, "
+					+ "pis = ?, confins = ?, icms = ?, totalPagar = ? WHERE instalacao='"+ x + "'";
+			
+			// Recebendo o updateSQL
+			PreparedStatement stmt = conexao.prepareStatement(updateSQL);		
+			
+			// Setando no banco
+			stmt.setString(1, nomeClienteField.getText());
+			stmt.setString(2, vencimentoField_1.getText());
+			stmt.setString(3, contaMesField.getText());
+			stmt.setString(4, consumoField.getText());
+			stmt.setString(5, tarifaField.getText());
+			stmt.setString(6, pisField.getText());
+			stmt.setString(7, cofinsField.getText());
+			stmt.setString(8, icmsField.getText());
+			stmt.setString(9, totalPagarField.getText());
+			
+			stmt.executeUpdate();
+			
+			System.out.println("Dados atualizados com sucesso");
+			
+			// Fechando conexoes
+			stmt.close();
+			conexao.close();
+	    }
+    
+    
+	
+	
+	public void delete() throws SQLException {
+	    	
+	    	Connection conexao = FabricaConexao.getConexao();
+	    	
+	    	// Atribuindo oque foi digitado no textField a variavel x
+	    	String x = instalacaoField_1.getText();
+	    	
+	    	String deleteSQL = "DELETE FROM conta_luz WHERE instalacao='"+ x + "'";
+	    	
+	    	PreparedStatement stmt = conexao.prepareStatement(deleteSQL);
+	    	
+	    	stmt.execute();
+	    	
+	    	instalacaoField_1.setText("");
+			nomeClienteField.setText("");
+			vencimentoField_1.setText("");
+			contaMesField.setText("");
+			consumoField.setText("");
+			tarifaField.setText("");
+			pisField.setText("");
+			cofinsField.setText("");
+			icmsField.setText("");
+			totalPagarField.setText("");
+			
+			System.out.println("Dados excluidos com sucesso");
+	
+	    	
+	    	conexao.close(); 	
+	    }
+	
+	
+	
+	public static ArrayList getD(String tabela, String coluna) throws Exception{
+		try {
+			Connection con = FabricaConexao.getConexao();
+			PreparedStatement  pegar = con.prepareStatement("SELECT * FROM " + tabela);
+			ResultSet resultado = pegar.executeQuery();
+		
+			ArrayList array = new ArrayList();
+			while (resultado.next()) {
+				array.add(resultado.getString(coluna));
+			}
+		
+			System.out.println("Get finalizado");
+			System.out.println(array);
+			return array;
+		}
+		catch (Exception e) {
+			System.out.println("erro no get " + e);
+		}
+		return null;
+	}
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton arquivoButton;
@@ -562,6 +918,7 @@ public class TelaLuz extends javax.swing.JFrame {
     private javax.swing.JTextField contaMesField;
     private javax.swing.JTextField icmsField;
     private javax.swing.JTextField instalacaoField;
+    private JTextField instalacaoField_1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -584,8 +941,13 @@ public class TelaLuz extends javax.swing.JFrame {
     private javax.swing.JTextField tarifaField;
     private javax.swing.JTextField totalPagarField;
     private javax.swing.JTextField vencimentoField;
+    private JTextField vencimentoField_1;
     // End of variables declaration//GEN-END:variables
     private HashMap<String, ContaLuz> clientes;
     private ArrayList<ContaLuz> historico;
+    private JButton btnAtualizar;
+    private JButton btnExcluir;
+    private JLabel lblNewLabel;
+    private JLabel lblNewLabel_1;
     
 }

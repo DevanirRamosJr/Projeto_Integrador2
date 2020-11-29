@@ -4,10 +4,6 @@
  * and open the template in the editor.
  */
 
-/**
- *
- * @author jeferson
- */
 package source;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
@@ -19,9 +15,10 @@ public class TelaInicial extends javax.swing.JFrame {
      * Creates new form TelaInicial
      */
     public TelaInicial() {
+        setTitle("Menu");
         initComponents();
         
-        Action aguaAction = new AbstractAction("√Ågua") {
+        Action aguaAction = new AbstractAction("¡gua") {
             @Override
             public void actionPerformed(ActionEvent e) {
                 
@@ -31,7 +28,7 @@ public class TelaInicial extends javax.swing.JFrame {
         }
     };
     
-    String key = "√Ågua";
+    String key = "¡gua";
     
     aguaButton.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_A, KeyEvent.CTRL_DOWN_MASK), key);
     
@@ -80,7 +77,7 @@ public class TelaInicial extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        aguaButton.setText("√Ågua");
+        aguaButton.setText("¡gua");
         aguaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 aguaButtonActionPerformed(evt);
@@ -99,10 +96,10 @@ public class TelaInicial extends javax.swing.JFrame {
             }
         });
 
-        relatorioButton.setText("Relat√≥rio");
+        relatorioButton.setText("RelatÛrio");
         relatorioButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                relatorioButtonActionPerformed(evt);
+                new TelaRelatorio().setVisible(true);
             }
         });
 
@@ -194,7 +191,7 @@ public class TelaInicial extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaLogin().setVisible(true);
+                new TelaConectarBD().setVisible(true);
             }
         });
     }
