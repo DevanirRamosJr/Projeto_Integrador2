@@ -2,7 +2,7 @@
 
 # Projeto Integrador 2
 
-Software para cadastro de conta de água e luz para a empresa Tecsus.
+Software para cadastro de conta de água e luz para a empresa parceira da Fatec - SJC.
 
 ## Features
 
@@ -14,24 +14,15 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
 - Identificação do digitador através de um login;
 - Criar um arquivo .csv com os dados das contas cadastradas;
 
-### Integrantes da Equipe
+## Integrantes da Equipe
 
-- Danillo - Desenvolvedor
-- Devanir - Scrum Master
-- Johnny - Desenvolvedor
-- Jonatas Ferreira - P.O.
+- Danillo - Desenvolvedor - [Linkedln](https://www.linkedin.com/in/danillo-fernandes-da-costa-392810200)
+- Devanir - Scrum Master - [Linkedln](https://www.linkedin.com/in/devanir-ramos-655ab2148)
+- Tairik Johnny - Desenvolvedor - [Linkedln](www.linkedin.com/in/tairik-nishimura)
+- Jonatas Ferreira - P.O. - [Linkedln](https://www.linkedin.com/in/jonatas-luiz-ferreira/)
 
-## Sprint 4:
+## Instalação
 
-- Objetivos da entrega:
-   - Adicionar comandos para atualizar e deletar dados no Banco;
-   - Adicionar máscaras nos campos;
-   - Ao salvar a conta o nome do digitador também é salvo;
-   - Criação de um arquivo .csv como relatório de uma conta.
-   
-   <img src="img/user_story_40.png" ><img src="img/user_story_41.png" >
-   
-   
 - Instalação:
    - Download "programa_executável.zip"
    - Descompactar os arquivos em sua pasta desejada
@@ -52,7 +43,21 @@ Software para cadastro de conta de água e luz para a empresa Tecsus.
             ```
 - Guia de usuário incluído no arquivo zip.
 
-- Vídeo (sprint 4):
+## Entregas
+
+- Sprint 1
+
+https://www.loom.com/share/23ad38551e154d7eba3c92a02de4ca16
+
+- Sprint 2
+
+link
+
+- Sprint 3
+
+https://www.loom.com/share/3062732acfce4c4e943165e162f6695f
+
+- Sprint 4
 
 https://www.loom.com/share/5ea7a83cee2b445c94bc6d99a8cf1be9
 
